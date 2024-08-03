@@ -1,41 +1,50 @@
 {
-	"name": "grape",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "tsc -b && vite build",
-		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@stylexjs/stylex": "^0.7.5",
-		"@tanstack/react-query": "^5.51.14",
-		"@tanstack/react-router": "^1.45.11",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"vite-plugin-stylex": "^0.10.1"
-	},
-	"devDependencies": {
-		"@tanstack/react-query-devtools": "^5.51.14",
-		"@tanstack/router-devtools": "^1.45.11",
-		"@tanstack/router-vite-plugin": "^1.45.8",
-		"@types/react": "^18.3.3",
-		"@types/react-dom": "^18.3.0",
-		"@typescript-eslint/eslint-plugin": "^7.15.0",
-		"@typescript-eslint/parser": "^7.15.0",
-		"@vitejs/plugin-react": "^4.3.1",
-		"eslint": "^8.57.0",
-		"eslint-plugin-react-hooks": "^4.6.2",
-		"eslint-plugin-react-refresh": "^0.4.7",
-		"typescript": "^5.2.2",
-		"vite": "^5.3.4",
-		"vite-tsconfig-paths": "^4.3.2"
-	},
-	"overrides": {
-		"vite-plugin-stylex": {
-			"@stylexjs/babel-plugin": "0.4.1"
-		}
-	}
+  "name": "grape",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "gen-types": "supabase gen types typescript --project-id migdvgbufczfbwarvspi > src/shared/types/database.types.ts"
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "@stylexjs/stylex": "^0.7.5",
+    "@supabase/supabase-js": "^2.45.0",
+    "@tanstack/react-query": "^5.51.14",
+    "@tanstack/react-router": "^1.45.11",
+    "antd": "^5.19.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite-plugin-stylex": "^0.10.1"
+  },
+  "devDependencies": {
+    "@stylexjs/eslint-plugin": "^0.7.5",
+    "@tanstack/react-query-devtools": "^5.51.14",
+    "@tanstack/router-cli": "^1.45.13",
+    "@tanstack/router-devtools": "^1.45.11",
+    "@tanstack/router-vite-plugin": "^1.45.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "prettier": "^3.3.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4",
+    "vite-tsconfig-paths": "^4.3.2"
+  },
+  "overrides": {
+    "vite-plugin-stylex": {
+      "@stylexjs/babel-plugin": "0.4.1"
+    }
+  }
 }
