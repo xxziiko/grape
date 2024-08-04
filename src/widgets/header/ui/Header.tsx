@@ -34,7 +34,7 @@ const Header = (props: HeaderProps) => {
         )}
       </div>
 
-      {title && <p {...stylex.props(styles.text)}>{title}</p>}
+      {title && <div {...stylex.props(styles.text)}>{title}</div>}
     </div>
   );
 };
