@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# 간편 채팅 서비스, grape
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br/>
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installation
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+  npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Running the Project
+
+```bash
+  npm run dev
+```
+
+<br/>
+
+## Commit Convention
+
+- feat: 새로운 기능 추가
+- fix: 버그 수정
+- docs: 문서 수정
+- style: 코드 스타일 변경 (코드 포매팅, 세미콜론 누락 등)
+- design: 사용자 UI 디자인 변경 (CSS 등)
+- test: 테스트 코드, 리팩토링 (Test Code)
+- refactor: 리팩토링 (Production Code)
+- build: 빌드 파일 수정
+- ci: CI 설정 파일 수정
+- perf: 성능 개선
+- chore: 자잘한 수정이나 빌드 업데이트
+- rename: 파일 혹은 폴더명을 수정만 한 경우
+- remove: 파일을 삭제만 한 경우
