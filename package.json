@@ -22,6 +22,7 @@
     "vite-plugin-stylex": "^0.10.1"
   },
   "devDependencies": {
+    "@stylexjs/babel-plugin": "^0.7.5",
     "@stylexjs/eslint-plugin": "^0.7.5",
     "@stylexjs/rollup-plugin": "^0.7.5",
     "@tanstack/react-query-devtools": "^5.51.14",
