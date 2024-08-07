@@ -22,7 +22,7 @@
     "vite-plugin-stylex": "^0.10.1"
   },
   "devDependencies": {
-    "@stylexjs/babel-plugin": "^0.7.5",
+    "@stylexjs/babel-plugin": "0.4.1",
     "@stylexjs/eslint-plugin": "^0.7.5",
     "@tanstack/react-query-devtools": "^5.51.14",
     "@tanstack/router-cli": "^1.45.13",
@@ -45,7 +45,7 @@
   },
   "overrides": {
     "vite-plugin-stylex": {
-      "@stylexjs/babel-plugin": "^0.7.5"
+      "@stylexjs/babel-plugin": "0.4.1"
     }
   }
 }
