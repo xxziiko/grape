@@ -1,12 +1,12 @@
-import { ButtonBoxLayout, DefaultButton, PageLayout } from "@/shared";
-import { Header } from "@/widgets/header";
-import * as stylex from "@stylexjs/stylex";
-import { useNavigate } from "@tanstack/react-router";
-import { memo } from "react";
+import { ButtonBoxLayout, DefaultButton, PageLayout } from '@/shared';
+import { Header } from '@/widgets/header';
+import * as stylex from '@stylexjs/stylex';
+import { useNavigate } from '@tanstack/react-router';
+import { memo } from 'react';
 
 const HomePage = () => {
-  const navigate = useNavigate({ from: "/" });
-  const goToLogin = () => navigate({ to: "/login" });
+  const navigate = useNavigate({ from: '/' });
+  const goToLogin = () => navigate({ to: '/login' });
 
   return (
     <PageLayout>
@@ -26,19 +26,19 @@ export default memo(HomePage);
 
 const styles = stylex.create({
   content: {
-    height: "100%",
+    height: '100%',
   },
 
   kakaoButton: {
     backgroundColor: {
-      default: "#F6E10C",
-      ":hover": {
-        default: "rgba(246, 225, 12, 0.6)",
+      default: '#F6E10C',
+      ':hover': {
+        default: 'rgba(246, 225, 12, 0.6)',
       },
     },
     borderColor: {
-      default: "rgba(246, 225, 12, 0.6)",
+      default: 'rgba(246, 225, 12, 0.6)',
     },
-    color: "#000000",
+    color: '#000000',
   },
 });
