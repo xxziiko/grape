@@ -1,15 +1,12 @@
 import * as stylex from '@stylexjs/stylex';
-import type {
-  CompiledStyles,
-  StyleXArray,
-} from '@stylexjs/stylex/lib/StyleXTypes';
+import { Button } from 'antd';
 import { memo } from 'react';
 
 type ButtonProps = {
   command: string;
   onClick?: React.MouseEventHandler<HTMLElement>;
   htmlType?: 'submit' | 'button' | 'reset' | undefined;
-  style?: StyleXArray<boolean | CompiledStyles | null | undefined>;
+  style?: any;
   disabled?: boolean;
 };
 
@@ -21,8 +18,8 @@ const DefaultButton = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button
-      type={htmlType}
+    <Button
+      htmlType={htmlType}
       disabled={disabled}
       {...stylex.props(
         styles.base,
@@ -32,7 +29,7 @@ const DefaultButton = ({
       {...props}
     >
       {command}
-    </button>
+    </Button>
   );
 };
 
@@ -52,7 +49,6 @@ const styles = stylex.create({
         default: '#DCC9EB',
       },
     },
-    borderStyle: 'none',
     borderRadius: '30px',
     borderColor: {
       default: '#DCC9EB',
@@ -65,6 +61,5 @@ const styles = stylex.create({
   disabled: {
     backgroundColor: '#E1E0E2',
     color: '#A3A3A3',
-    cursor: 'pointer',
   },
 });
