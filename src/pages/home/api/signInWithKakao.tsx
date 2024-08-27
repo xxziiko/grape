@@ -4,7 +4,7 @@ const signInWithKakao = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
-      redirectTo: `${import.meta.env.VITE_BASE_URL}/chat`,
+      redirectTo: `${location.origin}/auth/callback`,
     },
   });
 
