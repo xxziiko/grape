@@ -1,11 +1,14 @@
-import { useLoginMutation, useSignUpMutation } from '@/features/loginForm';
+import {
+  checkEmailExists,
+  useLoginMutation,
+  useSignUpMutation,
+} from '@/features/loginForm';
 import {
   FormLayout,
   InputWithLabel,
   type UserInfo,
   emailValidation,
   passwordValidation,
-  selectEmail,
 } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo, useCallback } from 'react';
@@ -24,6 +27,7 @@ const LoginForm = () => {
   });
   const { mutate: signUpMutaiton } = useSignUpMutation();
   const { mutate: loginMutation } = useLoginMutation(setError);
+
   const buttonOptions = {
     command: '시작하기',
     disabled: !isValid,
@@ -32,8 +36,9 @@ const LoginForm = () => {
   const handleSignUp: SubmitHandler<UserInfo> = useCallback(
     async (data) => {
       if (data) {
-        const email = await selectEmail(data.email);
-        if (!email) signUpMutaiton(data);
+        const hasEmail = await checkEmailExists(data.email);
+        console.log(hasEmail);
+        if (!hasEmail) signUpMutaiton(data);
         else loginMutation(data);
       }
     },
