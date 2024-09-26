@@ -1,15 +1,18 @@
-import { signUpUser, useAuth } from '@/entities/auth';
-import { fetchUserName } from '@/features/loginForm';
+import { signUpUser } from '@/entities/auth';
+import { handleError } from '@/shared';
 import { useMutation } from '@tanstack/react-query';
+import { stepAtom } from '../atoms';
+import { useAtom } from 'jotai';
 
 const useSignUpMutation = () => {
-  const { setUserName } = useAuth();
+  const [, setStep] = useAtom(stepAtom);
+
   const { mutate, isError } = useMutation({
     mutationFn: signUpUser,
-    onSuccess: async (data) => {
-      const userName = await fetchUserName(data?.user?.email);
-      if (userName) setUserName(userName);
+    onSuccess: () => {
+      setStep('프로필설정');
     },
+    onError: (error) => handleError({ data: null, error }),
   });
 
   return { mutate, isError };
