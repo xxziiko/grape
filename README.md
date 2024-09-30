@@ -29,6 +29,7 @@
 |제목|
 |---|
 |[Context API와 Jotai: 인증 상태 관리를 어떻게 더 효율적으로 만들까?](https://velog.io/@xxziiko/Context-API%EC%99%80-Jotai)
+|[Context API 리렌더링과 React.memo의 한계](https://velog.io/@xxziiko/Context-API-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EB%A6%AC%EB%A0%8C%EB%8D%94%EB%A7%81-%EB%AC%B8%EC%A0%9C%EC%99%80-React.memo%EC%9D%98-%ED%95%9C%EA%B3%84)
 
 <br/>
 
