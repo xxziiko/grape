@@ -1,6 +1,6 @@
 import { handleError, supabase } from '@/shared';
 
-const fetchUserChats = async (userId: string | undefined) =>
+const fetchUserChats = async (userId: string | null) =>
   supabase
     .from('chat_list_view')
     .select('*')
