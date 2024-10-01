@@ -1,26 +1,28 @@
 // components
-export { default as DefaultButton } from "./ui/components/DefaultButton";
-export { default as InputWithLabel } from "./ui/components/InputWithLabel";
-export { default as Bubble } from "./ui/components/Bubble";
-export { default as SearchBar } from "./ui/components/SearchBar";
-export { default as Title } from "./ui/components/Title";
+export { default as DefaultButton } from './ui/components/DefaultButton';
+export { default as InputWithLabel } from './ui/components/InputWithLabel';
+export { default as Bubble } from './ui/components/Bubble';
+export { default as SearchBar } from './ui/components/SearchBar';
+export { default as Title } from './ui/components/Title';
+export { default as ProfileSetup } from './ui/components/ProfileSetup';
 
 // layouts
-export { default as PageLayout } from "./ui/layouts/PageLayout";
-export { default as FormLayout } from "./ui/layouts/FormLayout";
-export { default as ButtonBoxLayout } from "./ui/layouts/ButtonBoxLayout";
+export { default as PageLayout } from './ui/layouts/PageLayout';
+export { default as FormLayout } from './ui/layouts/FormLayout';
+export { default as ButtonBoxLayout } from './ui/layouts/ButtonBoxLayout';
+export { default as AuthLayout } from './ui/layouts/AuthLayout';
 
 // types
-export * from "./types/client";
-
-// apis
-export * from "./api";
+export * from './types/client';
 
 // assets
-export { default as KakaoIcon } from "./assets/KakaoIcon";
+export { default as KakaoIcon } from './assets/KakaoIcon';
 
 // constants
-export * from "./constants";
+export * from './constants';
 
 // utils
-export * from "./utils";
+export * from './utils';
+
+// apis
+export * from './apis';
