@@ -1,10 +1,10 @@
-import { fetchUserFriends } from '@/features/chat';
-import { type FriendType, handleError } from '@/shared';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { fetchUserFriends } from "@/features/chat";
+import { type FriendType, handleError } from "@/shared";
+import { useQuery } from "@tanstack/react-query";
 
-const useFriendsQuery = (userId: string | undefined) => {
-  const { error, ...rest } = useSuspenseQuery({
-    queryKey: ['friends', userId],
+const useFriendsQuery = (userId: string | null) => {
+  const { error, ...rest } = useQuery({
+    queryKey: ["friends", userId],
     queryFn: () => fetchUserFriends(userId),
     select: (data) =>
       data?.map((user): FriendType => {
@@ -13,6 +13,7 @@ const useFriendsQuery = (userId: string | undefined) => {
           friendName: user.friend_name,
         };
       }),
+    enabled: !!userId,
   });
 
   return handleError({ data: rest, error });

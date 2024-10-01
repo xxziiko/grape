@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { routeTree } from './routeTree.gen';
 import '@/apps/global.css';
+import { Provider } from 'jotai';
 
 const router = createRouter({ routeTree });
 
@@ -35,7 +36,9 @@ if (!rootElement.innerHTML) {
                 <ErrorPage onClick={resetErrorBoundary} />
               )}
             >
-              <RouterProvider router={router} />
+              <Provider>
+                <RouterProvider router={router} />
+              </Provider>
             </ErrorBoundary>
           )}
         </QueryErrorResetBoundary>

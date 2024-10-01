@@ -1,23 +1,22 @@
-import { handleError, supabase } from '@/shared';
 import { Session } from '@supabase/supabase-js';
 import { atom } from 'jotai';
 import { atomWithSuspenseQuery } from 'jotai-tanstack-query';
+import { fetchUserName } from './apis';
 
-export const userNameQueryAtom = atomWithSuspenseQuery((get) => ({
+export const userNameAtom = atomWithSuspenseQuery((get) => ({
   queryKey: ['userName', get(userIdAtom)],
   queryFn: async () => {
     const userId = get(userIdAtom);
     if (!userId) return null;
 
-    return await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', userId)
-      .single()
-      .then(handleError);
+    const query = await fetchUserName(userId);
+    return query?.user_name;
   },
-  enabled: !!get(userIdAtom), // userId가 있을 때만 실행
+  enabled: !!get(userIdAtom),
 }));
 
+export const userNameQueryAtom = atom<string | null>(null);
 export const sessionAtom = atom<Session | null>(null);
-export const userIdAtom = atom<string | null>(null);
+export const userIdAtom = atom<string | undefined>(
+  (get) => get(sessionAtom)?.user.id,
+);

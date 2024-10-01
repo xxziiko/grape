@@ -21,6 +21,9 @@ import { Route as AuthImport } from './routes/_auth'
 const PubIndexLazyImport = createFileRoute('/_pub/')()
 const PubLoginIndexLazyImport = createFileRoute('/_pub/login/')()
 const AuthChatIndexLazyImport = createFileRoute('/_auth/chat/')()
+const AuthLoginProfileSetupLazyImport = createFileRoute(
+  '/_auth/login/profile-setup',
+)()
 const AuthChatChatIdLazyImport = createFileRoute('/_auth/chat/$chatId')()
 
 // Create/Update Routes
@@ -52,6 +55,13 @@ const AuthChatIndexLazyRoute = AuthChatIndexLazyImport.update({
   getParentRoute: () => AuthRoute,
 } as any).lazy(() =>
   import('./routes/_auth.chat.index.lazy').then((d) => d.Route),
+)
+
+const AuthLoginProfileSetupLazyRoute = AuthLoginProfileSetupLazyImport.update({
+  path: '/login/profile-setup',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() =>
+  import('./routes/_auth.login.profile-setup.lazy').then((d) => d.Route),
 )
 
 const AuthChatChatIdLazyRoute = AuthChatChatIdLazyImport.update({
@@ -93,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthChatChatIdLazyImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/login/profile-setup': {
+      id: '/_auth/login/profile-setup'
+      path: '/login/profile-setup'
+      fullPath: '/login/profile-setup'
+      preLoaderRoute: typeof AuthLoginProfileSetupLazyImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/chat/': {
       id: '/_auth/chat/'
       path: '/chat'
@@ -115,6 +132,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   AuthRoute: AuthRoute.addChildren({
     AuthChatChatIdLazyRoute,
+    AuthLoginProfileSetupLazyRoute,
     AuthChatIndexLazyRoute,
   }),
   PubRoute: PubRoute.addChildren({ PubIndexLazyRoute, PubLoginIndexLazyRoute }),
@@ -136,6 +154,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/chat/$chatId",
+        "/_auth/login/profile-setup",
         "/_auth/chat/"
       ]
     },
@@ -152,6 +171,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_auth/chat/$chatId": {
       "filePath": "_auth.chat.$chatId.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/login/profile-setup": {
+      "filePath": "_auth.login.profile-setup.lazy.tsx",
       "parent": "/_auth"
     },
     "/_auth/chat/": {
