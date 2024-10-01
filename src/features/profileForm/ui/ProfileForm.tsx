@@ -5,6 +5,8 @@ import { Avatar } from 'antd';
 import { memo, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useUserNameMutation } from '..';
+import { useAtom } from 'jotai';
+import { userIdAtom } from '@/entities/auth';
 
 const ProfileForm = () => {
   const {
@@ -17,6 +19,7 @@ const ProfileForm = () => {
     shouldFocusError: true,
   });
   const { mutate } = useUserNameMutation();
+  const [userId] = useAtom(userIdAtom);
   const buttonOptions = {
     command: '확인',
     disabled: !isValid,
@@ -24,7 +27,7 @@ const ProfileForm = () => {
 
   const updateUserName: SubmitHandler<UserName> = useCallback(
     (data) => {
-      mutate(data);
+      mutate({ userName: data.userName, userId });
     },
     [mutate],
   );

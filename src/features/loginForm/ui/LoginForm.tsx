@@ -1,8 +1,5 @@
-import {
-  checkEmailExists,
-  useLoginMutation,
-  useSignUpMutation,
-} from '@/features/loginForm';
+import { checkEmailExists } from '@/entities/auth';
+import { useLoginMutation, useSignUpMutation } from '@/features/loginForm';
 import {
   FormLayout,
   InputWithLabel,
@@ -37,7 +34,7 @@ const LoginForm = () => {
     async (data) => {
       if (data) {
         const hasEmail = await checkEmailExists(data.email);
-        console.log(hasEmail);
+
         if (!hasEmail) signUpMutaiton(data);
         else loginMutation(data);
       }

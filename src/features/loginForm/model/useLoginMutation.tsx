@@ -1,31 +1,30 @@
-import { sessionAtom, signInUser, userNameQueryAtom } from '@/entities/auth';
-import { type UserInfo } from '@/shared';
+import { fetchUserName, sessionAtom, signInUser } from '@/entities/auth';
+import { handleError, type UserInfo } from '@/shared';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import type { UseFormSetError } from 'react-hook-form';
 import { useAtom } from 'jotai';
-import { stepAtom } from '../atoms';
 
 const useLoginMutation = (setError: UseFormSetError<UserInfo>) => {
-  const navigate = useNavigate({ from: '/login' });
-  const [userNameQuery] = useAtom(userNameQueryAtom);
   const [, setSession] = useAtom(sessionAtom);
-  const [, setStep] = useAtom(stepAtom);
+
+  const navigate = useNavigate();
 
   const { mutate, isError } = useMutation({
     mutationFn: signInUser,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setSession(data.session);
+      const query = await fetchUserName(data.user?.id);
 
-      if (userNameQuery.data) {
-        navigate({ to: '/chat' });
-      } else setStep('프로필설정');
+      if (query?.user_name) navigate({ to: '/chat' });
+      else navigate({ to: '/login/profile-setup' });
     },
-    onError: () => {
+    onError: (error) => {
       setError('password', {
         type: 'manual',
-        message: '비밀번호가 틀렸습니다',
+        message: '비밀번호를 확인해주세요',
       });
+      handleError({ data: null, error });
     },
   });
 
