@@ -1,11 +1,11 @@
-import { type ChatItemType, handleError } from "@/shared";
-import { useQuery } from "@tanstack/react-query";
-import fetchChats from "../apis/fetchUserChats";
+import { type ChatItemType, handleError } from '@/shared';
+import { useQuery } from '@tanstack/react-query';
+import { fetchUserChats } from '@/features/chat';
 
 const useChatsQuery = (userId: string | null) => {
   const { error, ...rest } = useQuery({
-    queryKey: ["chats", userId],
-    queryFn: () => fetchChats(userId),
+    queryKey: ['chats', userId],
+    queryFn: () => fetchUserChats(userId),
     enabled: !!userId,
     select: (data) =>
       data?.map(
@@ -18,7 +18,7 @@ const useChatsQuery = (userId: string | null) => {
             body: chat.latestmessage_body,
             created_at: chat.latest_message_created_at,
           },
-        })
+        }),
       ),
   });
 
