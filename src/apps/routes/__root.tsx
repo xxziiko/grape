@@ -1,9 +1,9 @@
-import { ErrorPage } from '@/pages/error';
+import Error from '@/pages/Error';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 // import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 export const Route = createRootRoute({
-  errorComponent: ErrorPage,
+  errorComponent: Error,
   component: () => (
     <>
       <Outlet />

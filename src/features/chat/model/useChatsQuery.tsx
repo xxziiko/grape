@@ -2,7 +2,7 @@ import { type ChatItemType, handleError } from '@/shared';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUserChats } from '@/features/chat';
 
-const useChatsQuery = (userId: string | null) => {
+const useChatsQuery = (userId: string | undefined) => {
   const { error, ...rest } = useQuery({
     queryKey: ['chats', userId],
     queryFn: () => fetchUserChats(userId),

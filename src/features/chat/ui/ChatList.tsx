@@ -10,6 +10,7 @@ const ChatList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
+  //FIXME: semantic tag
   return (
     <div {...stylex.props(styles.list)}>
       {data

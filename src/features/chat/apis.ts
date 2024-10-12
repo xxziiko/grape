@@ -14,14 +14,14 @@ export const fetchMessagesForChat = async (chatId: string | undefined) =>
     .order('created_at', { ascending: true })
     .then(handleError);
 
-export const fetchUserChats = async (userId: string | null) =>
+export const fetchUserChats = async (userId: string | undefined) =>
   supabase
     .from('chat_list_view')
     .select('*')
     .eq('user_id', userId)
     .then(handleError);
 
-export const fetchUserFriends = async (userId: string | null) =>
+export const fetchUserFriends = async (userId: string | undefined) =>
   supabase
     .from('friends')
     .select('friend_id, friend_name')

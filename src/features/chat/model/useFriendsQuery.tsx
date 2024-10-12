@@ -1,10 +1,10 @@
-import { fetchUserFriends } from "@/features/chat";
-import { type FriendType, handleError } from "@/shared";
-import { useQuery } from "@tanstack/react-query";
+import { fetchUserFriends } from '@/features/chat';
+import { type FriendType, handleError } from '@/shared';
+import { useQuery } from '@tanstack/react-query';
 
-const useFriendsQuery = (userId: string | null) => {
+const useFriendsQuery = (userId: string | undefined) => {
   const { error, ...rest } = useQuery({
-    queryKey: ["friends", userId],
+    queryKey: ['friends', userId],
     queryFn: () => fetchUserFriends(userId),
     select: (data) =>
       data?.map((user): FriendType => {

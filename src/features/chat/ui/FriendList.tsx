@@ -1,8 +1,8 @@
-import { userIdAtom } from "@/entities/auth";
-import { FriendListItem, useFriendsQuery } from "@/features/chat";
-import * as stylex from "@stylexjs/stylex";
-import { useAtom } from "jotai";
-import { memo } from "react";
+import { userIdAtom } from '@/entities/auth';
+import { FriendListItem, useFriendsQuery } from '@/features/chat';
+import * as stylex from '@stylexjs/stylex';
+import { useAtom } from 'jotai';
+import { memo } from 'react';
 
 const FriendList = () => {
   const [userId] = useAtom(userIdAtom);
@@ -10,6 +10,7 @@ const FriendList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
+  // FIXME: semantic tag
   return (
     <div {...stylex.props(styles.list)}>
       {data
@@ -23,8 +24,8 @@ export default memo(FriendList);
 
 const styles = stylex.create({
   list: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
 });
