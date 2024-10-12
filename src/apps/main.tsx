@@ -1,4 +1,3 @@
-import { ErrorPage } from '@/pages/error';
 import { queryClient } from '@/shared';
 import {
   QueryClientProvider,
@@ -11,6 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { routeTree } from './routeTree.gen';
 import '@/apps/global.css';
 import { Provider } from 'jotai';
+import Error from '@/pages/Error';
 
 const router = createRouter({ routeTree });
 
@@ -33,7 +33,7 @@ if (!rootElement.innerHTML) {
             <ErrorBoundary
               onReset={reset}
               fallbackRender={({ resetErrorBoundary }) => (
-                <ErrorPage onClick={resetErrorBoundary} />
+                <Error onClick={resetErrorBoundary} />
               )}
             >
               <Provider>

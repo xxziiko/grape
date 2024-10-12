@@ -33,7 +33,7 @@ const HomePage = () => {
       <ButtonBoxLayout>
         <DefaultButton
           command="카카오 로그인"
-          style={styles.kakaoButton}
+          styleType="kakao"
           icon={<KakaoIcon />}
           onClick={signInWithKakao}
         />
@@ -48,18 +48,6 @@ export default memo(HomePage);
 const styles = stylex.create({
   borderRadius: {
     borderRadius: '12px',
-  },
-
-  kakaoButton: {
-    backgroundColor: {
-      default: '#FEE500',
-      ':hover': {
-        default: 'rgba(246, 225, 12, 0.6)',
-      },
-    },
-
-    borderColor: 'rgba(246, 225, 12, 0.6)',
-    color: '#000000',
   },
 
   gradientBackground: {

@@ -1,6 +1,6 @@
 import { handleError } from '@/shared';
 import { useMutation } from '@tanstack/react-query';
-import sendChatMessage from '../apis/sendChatMessage';
+import { sendChatMessage } from '@/features/chat';
 
 const useMessageMutation = () => {
   const { mutate, isError } = useMutation({
