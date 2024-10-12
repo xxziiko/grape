@@ -1,13 +1,11 @@
-import { fetchUserName, sessionAtom, signInUser } from '@/entities/auth';
+import { fetchUserName, signInUser, useSession } from '@/entities/auth';
 import { handleError, type UserInfo } from '@/shared';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import type { UseFormSetError } from 'react-hook-form';
-import { useAtom } from 'jotai';
 
 const useLoginMutation = (setError: UseFormSetError<UserInfo>) => {
-  const [, setSession] = useAtom(sessionAtom);
-
+  const { setSession } = useSession();
   const navigate = useNavigate();
 
   const { mutate, isError } = useMutation({
