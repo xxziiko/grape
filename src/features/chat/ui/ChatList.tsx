@@ -1,12 +1,12 @@
 import { userIdAtom } from '@/entities/auth';
 import { ChatListItem, useChatsQuery } from '@/features/chat';
-import * as stylex from '@stylexjs/stylex';
 import { useAtom } from 'jotai';
 import { memo } from 'react';
+import * as stylex from '@stylexjs/stylex';
 
 const ChatList = () => {
   const [userId] = useAtom(userIdAtom);
-  const { data, isLoading } = useChatsQuery(userId!);
+  const { data, isLoading } = useChatsQuery(userId);
 
   if (isLoading) return <div>Loading...</div>;
 

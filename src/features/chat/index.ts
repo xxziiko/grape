@@ -5,6 +5,7 @@ export { default as FriendListItem } from './ui/FriendListItem';
 
 // hooks
 export { default as useRealTimeMessages } from './hooks/useRealTimeMessages';
+export { default as useMessages } from './hooks/useMessages';
 
 // model
 export { default as useChatsQuery } from './model/useChatsQuery';

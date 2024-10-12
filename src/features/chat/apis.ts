@@ -1,10 +1,4 @@
-import { handleError, supabase } from '@/shared';
-
-type MessageBodyType = {
-  chat_id: string | undefined;
-  user_id: string;
-  body: string;
-};
+import { handleError, Messages, supabase } from '@/shared';
 
 export const fetchMessagesForChat = async (chatId: string | undefined) =>
   supabase
@@ -28,11 +22,7 @@ export const fetchUserFriends = async (userId: string | undefined) =>
     .eq('user_id', userId)
     .then(handleError);
 
-export const sendChatMessage = async ({
-  chat_id,
-  user_id,
-  body,
-}: MessageBodyType) =>
+export const sendChatMessage = async ({ chat_id, user_id, body }: Messages) =>
   supabase
     .from('messages')
     .insert([{ chat_id, user_id, body }])

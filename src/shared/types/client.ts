@@ -19,11 +19,11 @@ export type UserName = {
 };
 
 export type Messages = {
-  chat_id: string;
+  chat_id: string | undefined;
   user_id: string;
-  id: number;
+  id?: number;
   body: string;
-  created_at: string;
+  created_at?: string;
 };
 
 export type ChatItemType = {
