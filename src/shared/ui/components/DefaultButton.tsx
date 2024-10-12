@@ -1,22 +1,18 @@
 import * as stylex from '@stylexjs/stylex';
-import type {
-  CompiledStyles,
-  StyleXArray,
-} from '@stylexjs/stylex/lib/StyleXTypes';
 import { memo } from 'react';
 
 type ButtonProps = {
   command: string;
   onClick?: React.MouseEventHandler<HTMLElement>;
   type?: 'submit' | 'button' | 'reset';
-  style?: StyleXArray<boolean | CompiledStyles | null | undefined>;
+  styleType?: keyof typeof styles;
   disabled?: boolean;
   icon?: React.ReactNode;
 };
 
 const DefaultButton = ({
   command,
-  style,
+  styleType,
   disabled = false,
   icon,
   ...props
@@ -26,7 +22,7 @@ const DefaultButton = ({
       {...stylex.props(
         styles.base,
         disabled ? styles.disabled : styles.base,
-        style,
+        styleType && styles[styleType],
       )}
       {...props}
     >
@@ -60,7 +56,7 @@ const styles = stylex.create({
     borderStyle: 'solid',
     borderRadius: '30px',
 
-    fontWeight: 600,
+    fontWeight: 700,
     fontSize: '17px',
     color: '#6C3C91',
     cursor: 'pointer',
@@ -70,5 +66,29 @@ const styles = stylex.create({
     backgroundColor: '#E1E0E2',
     color: '#A3A3A3',
     borderStyle: 'none',
+  },
+
+  kakao: {
+    backgroundColor: {
+      default: '#FEE500',
+      ':hover': {
+        default: 'rgba(246, 225, 12, 0.6)',
+      },
+    },
+
+    borderColor: 'rgba(246, 225, 12, 0.6)',
+    color: '#000000',
+  },
+
+  cancel: {
+    backgroundColor: 'rgba(163, 163, 163, 0.2)',
+    borderStyle: 'none',
+    color: '#4A4545',
+  },
+
+  error: {
+    backgroundColor: '#EE4A4A',
+    borderStyle: 'none',
+    color: '#ffffff',
   },
 });
