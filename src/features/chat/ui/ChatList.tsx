@@ -1,8 +1,9 @@
 import { userIdAtom } from '@/entities/auth';
-import { ChatListItem, useChatsQuery } from '@/features/chat';
+import { ChatListItem, NoData, useChatsQuery } from '@/features/chat';
 import { useAtom } from 'jotai';
 import { memo } from 'react';
 import * as stylex from '@stylexjs/stylex';
+import { PersonWithCheckIcon, styles } from '@/shared';
 
 const ChatList = () => {
   const [userId] = useAtom(userIdAtom);
@@ -10,22 +11,26 @@ const ChatList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  //FIXME: semantic tag
+  // TODO: noSearchData UI
   return (
-    <div {...stylex.props(styles.list)}>
-      {data
-        ?.sort((a, b) => Number(b.isNew) - Number(a.isNew))
-        .map((item) => <ChatListItem key={item.friendId} data={item} />)}
-    </div>
+    <>
+      {!data?.length && (
+        <NoData
+          icon={<PersonWithCheckIcon />}
+          title="친구를 등록해 볼까요?"
+          description={
+            '닉네임이나 전화번호를 추가하면 \n 친구랑 대화할 수 있어요'
+          }
+        />
+      )}
+
+      <ul {...stylex.props(styles.list)}>
+        {data
+          ?.sort((a, b) => Number(b.isNew) - Number(a.isNew))
+          .map((item) => <ChatListItem key={item.friendId} data={item} />)}
+      </ul>
+    </>
   );
 };
 
 export default memo(ChatList);
-
-const styles = stylex.create({
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-  },
-});
