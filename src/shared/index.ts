@@ -17,6 +17,7 @@ export * from './types/client';
 
 // assets
 export { default as KakaoIcon } from './assets/KakaoIcon';
+export { default as PersonWithCheckIcon } from './assets/PersonWithCheckIcon';
 
 // constants
 export * from './constants';
@@ -26,3 +27,6 @@ export * from './utils';
 
 // apis
 export * from './apis';
+
+//styles
+export * from './styles';
