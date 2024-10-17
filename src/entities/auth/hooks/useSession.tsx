@@ -17,7 +17,6 @@ const useSession = () => {
 
   useEffect(() => {
     checkAndRefreshSession();
-    // console.log('refresh token!');
   }, [session]);
 
   return { session, setSession };
