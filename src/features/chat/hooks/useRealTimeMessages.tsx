@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 const useRealTimeMessages = (
   chatId: string | undefined,
-  setMessages: (messages: React.SetStateAction<Messages[]>) => void,
+  setMessages: React.Dispatch<React.SetStateAction<Messages[]>>,
 ) => {
   useEffect(() => {
     if (!chatId) return;
@@ -19,7 +19,7 @@ const useRealTimeMessages = (
           filter: `chat_id=eq.${chatId}`,
         },
         (payload) => {
-          setMessages((prevMessages) => [
+          setMessages((prevMessages: Messages[]) => [
             ...prevMessages,
             payload.new as Messages,
           ]);
