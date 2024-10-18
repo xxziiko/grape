@@ -1,5 +1,6 @@
 import { userIdAtom } from '@/entities/auth';
-import { FriendListItem, useFriendsQuery } from '@/features/chat';
+import { FriendListItem, NoData, useFriendsQuery } from '@/features/chat';
+import { PersonWithCheckIcon, styles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { useAtom } from 'jotai';
 import { memo } from 'react';
@@ -10,22 +11,25 @@ const FriendList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  // FIXME: semantic tag
   return (
-    <div {...stylex.props(styles.list)}>
-      {data
-        ?.sort((a, b) => a.friendName.localeCompare(b.friendName))
-        .map((item) => <FriendListItem key={item.id} data={item} />)}
-    </div>
+    <>
+      {!data?.length && (
+        <NoData
+          icon={<PersonWithCheckIcon />}
+          title="친구를 등록해 볼까요?"
+          description={
+            '닉네임이나 전화번호를 추가하면 \n 친구랑 대화할 수 있어요'
+          }
+        />
+      )}
+
+      <ul {...stylex.props(styles.list)}>
+        {data
+          ?.sort((a, b) => a.friendName.localeCompare(b.friendName))
+          .map((item) => <FriendListItem key={item.id} data={item} />)}
+      </ul>
+    </>
   );
 };
 
 export default memo(FriendList);
-
-const styles = stylex.create({
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-  },
-});

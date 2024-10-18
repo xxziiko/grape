@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 
 const useRealTimeMessages = (
   chatId: string | undefined,
-  setMessages: (messages: React.SetStateAction<Messages[]>) => void,
+  setMessages: React.Dispatch<React.SetStateAction<Messages[]>>,
+  setRealtimeCount: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   useEffect(() => {
     if (!chatId) return;
@@ -19,10 +20,9 @@ const useRealTimeMessages = (
           filter: `chat_id=eq.${chatId}`,
         },
         (payload) => {
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            payload.new as Messages,
-          ]);
+          setMessages((prevData) => [...prevData, payload.new as Messages]);
+
+          setRealtimeCount((prev) => prev + 1);
         },
       )
       .subscribe();

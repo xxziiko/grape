@@ -21,7 +21,7 @@ const ChatListItem = ({ data }: { data: ChatItemType }) => {
       params={(prev) => ({ ...prev, chatId })}
       search={{ friendName: friendName }}
     >
-      <div {...stylex.props(styles.flexCenter, styles.box)}>
+      <li {...stylex.props(styles.flexCenter, styles.box)}>
         <div>
           <Avatar size={50} icon={<PersonIcon width={30} height={30} />} />
         </div>
@@ -37,7 +37,7 @@ const ChatListItem = ({ data }: { data: ChatItemType }) => {
             <Title text={relativeTime} style={!isNew && styles.isRead} />
           </div>
         </div>
-      </div>
+      </li>
     </Link>
   );
 };

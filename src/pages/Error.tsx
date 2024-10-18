@@ -1,4 +1,4 @@
-import { ButtonBoxLayout, DefaultButton, PageLayout } from '@/shared';
+import { ButtonBoxLayout, DefaultButton, PageLayout, styles } from '@/shared';
 import { useNavigate } from '@tanstack/react-router';
 import * as stylex from '@stylexjs/stylex';
 import { EyeNoneIcon } from '@radix-ui/react-icons';
@@ -33,19 +33,3 @@ const Error = ({ onClick }: { onClick?: () => void }) => {
 };
 
 export default Error;
-
-const styles = stylex.create({
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '80%',
-    gap: '10px',
-  },
-
-  text: {
-    color: '#757575',
-    fontSize: '13px',
-  },
-});

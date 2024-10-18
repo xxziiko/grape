@@ -8,7 +8,7 @@ const FriendListItem = ({ data }: { data: FriendType }) => {
   const { friendName } = data;
 
   return (
-    <div {...stylex.props(styles.flexCenter, styles.box)}>
+    <li {...stylex.props(styles.flexCenter, styles.box)}>
       <div>
         <Avatar size={50} icon={<PersonIcon width={30} height={30} />} />
       </div>
@@ -16,7 +16,7 @@ const FriendListItem = ({ data }: { data: FriendType }) => {
       <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
         <p {...stylex.props(styles.name)}>{friendName}</p>
       </div>
-    </div>
+    </li>
   );
 };
 

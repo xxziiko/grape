@@ -19,11 +19,6 @@ export const signInUser = async ({ email, password }: UserInfo) => {
 
 export const signOutUser = async () => await supabase.auth.signOut();
 
-export const getSession = async () => {
-  const { data, error } = await supabase.auth.getSession();
-  return handleError({ data: data.session, error });
-};
-
 export const fetchUserName = async (
   userId: string | undefined,
 ): Promise<{
@@ -46,4 +41,14 @@ export const checkEmailExists = async (
     .then(handleError);
 
   return !!selectEamil?.length;
+};
+
+export const getSession = async () => {
+  const { data, error } = await supabase.auth.getSession();
+  return handleError({ data: data.session, error });
+};
+
+export const refreshToken = async () => {
+  const { data, error } = await supabase.auth.refreshSession();
+  return handleError({ data: data.session, error });
 };
