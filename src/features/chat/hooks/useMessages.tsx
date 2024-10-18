@@ -4,18 +4,37 @@ import type { Messages } from '@/shared';
 import { useEffect, useState } from 'react';
 
 const useMessages = (chatId: string | undefined) => {
-  const { data, isLoading } = useMessagesQuery(chatId);
   const [messages, setMessages] = useState<Messages[]>([]);
-  useRealTimeMessages(chatId, setMessages);
+  const [realtimeMessages, setRealtimeMessages] = useState<Messages[]>([]);
+  const [realtimeCount, setRealtimeCount] = useState(0);
+
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useMessagesQuery(chatId, realtimeCount);
+
+  useRealTimeMessages(chatId, setRealtimeMessages, setRealtimeCount);
 
   useEffect(() => {
     if (data) {
-      const allMessages = data.pages.flat().reverse();
-      setMessages(allMessages);
+      const mergedMessages = [...data, ...realtimeMessages];
+      setMessages(mergedMessages);
     }
-  }, [data]);
+  }, [data, realtimeMessages]);
 
-  return { messages, isLoading };
+  return {
+    messages,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    realtimeCount,
+    refetch,
+  };
 };
 
 export default useMessages;

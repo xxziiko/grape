@@ -1,13 +1,5 @@
 import { handleError, Messages, supabase } from '@/shared';
 
-export const fetchMessagesForChat = async (chatId: string | undefined) =>
-  supabase
-    .from('messages')
-    .select('*')
-    .eq('chat_id', chatId)
-    .order('created_at', { ascending: true })
-    .then(handleError);
-
 export const fetchUserChats = async (userId: string | undefined) =>
   await supabase
     .from('chat_list_view')

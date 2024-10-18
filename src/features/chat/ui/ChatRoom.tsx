@@ -1,45 +1,86 @@
 import { userIdAtom } from '@/entities/auth';
-import { useMessageMutation, useMessages } from '@/features/chat';
+import {
+  useIntersectionObserver,
+  useMessageMutation,
+  useMessages,
+} from '@/features/chat';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
 import { Input } from 'antd';
 import { useAtom } from 'jotai';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+type SendMessage = {
+  newMessage: string;
+};
 
 const ChatRoom = () => {
   const router = useRouter();
   const location = useLocation();
   const { chatId } = useParams({ strict: false });
+
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const { handleSubmit, reset, control } = useForm<SendMessage>();
+  const chatRef = useRef<HTMLDivElement>(null);
+  const loadMoreRef = useRef<HTMLLIElement | null>(null);
+  const [userId] = useAtom(userIdAtom);
+
   const queryParams = new URLSearchParams(location.search);
   const friendName = queryParams.get('friendName') || '';
 
-  const [userId] = useAtom(userIdAtom);
-  const { messages, isLoading } = useMessages(chatId);
+  const {
+    messages,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    realtimeCount,
+  } = useMessages(chatId);
   const { mutate } = useMessageMutation();
+  const observe = useIntersectionObserver(
+    () => {
+      if (!isFetchingNextPage && hasNextPage) {
+        fetchNextPage();
+      }
+    },
+    { threshold: 0.5 },
+  );
 
-  const [newMessage, setNewMessage] = useState('');
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (userId) {
-        mutate({ chat_id: chatId, user_id: userId, body: newMessage });
-        setNewMessage('');
+  const SendMessages: SubmitHandler<SendMessage> = useCallback(
+    async (data: SendMessage) => {
+      if (userId && data) {
+        mutate({
+          chat_id: chatId,
+          user_id: userId,
+          body: data.newMessage,
+        });
+        reset();
       }
     },
 
-    [chatId, userId, newMessage, mutate],
+    [chatId, userId, mutate],
   );
 
   useEffect(() => {
-    if (!(messagesEndRef.current && messages)) return;
+    if (loadMoreRef.current) observe(loadMoreRef.current);
+  }, [observe]);
 
-    messagesEndRef.current.scrollIntoView({
-      block: 'end',
-    });
-  }, [messages]);
+  useEffect(() => {
+    if (chatRef.current && realtimeCount > 0) {
+      chatRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    }
+  }, [realtimeCount, messages]);
+
+  useEffect(() => {
+    if (chatRef.current && isInitialLoad) {
+      chatRef.current.scrollIntoView({
+        block: 'end',
+      });
+      setIsInitialLoad(false);
+    }
+  }, [isInitialLoad, messages]);
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -57,40 +98,62 @@ const ChatRoom = () => {
         </div>
       </div>
 
-      <div>
+      <main {...stylex.props(styles.main)}>
         <ul {...stylex.props(styles.ul)}>
-          {messages?.map((message) => (
-            <li
-              {...stylex.props(
-                styles.list,
-                message.user_id === userId ? styles.user : styles.friend,
-              )}
-              key={message.id}
-            >
-              {message.body}
-            </li>
-          ))}
-          <div ref={messagesEndRef} />
-        </ul>
+          {/** TODO: UI 수정*/}
 
-        <form onSubmit={handleSubmit} {...stylex.props(styles.form)}>
-          <Input
-            styles={{
-              input: {
-                padding: '10px 15px',
-                border: 'none',
-                borderRadius: '26px',
-                backgroundColor: 'rgba(220, 201, 235, 0.2)',
-              },
-            }}
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type your message..."
-          />
-          <button type="submit">Send</button>
-        </form>
-      </div>
+          {messages?.map((message, i) =>
+            i === 10 ? (
+              <li
+                ref={loadMoreRef}
+                {...stylex.props(
+                  styles.list,
+                  message.user_id === userId ? styles.user : styles.friend,
+                )}
+                key={message.id}
+              >
+                {message.body}
+              </li>
+            ) : (
+              <li
+                {...stylex.props(
+                  styles.list,
+                  message.user_id === userId ? styles.user : styles.friend,
+                )}
+                key={message.id}
+              >
+                {message.body}
+              </li>
+            ),
+          )}
+        </ul>
+        <div ref={chatRef} />
+      </main>
+
+      <form
+        onSubmit={handleSubmit(SendMessages)}
+        {...stylex.props(styles.form)}
+      >
+        <Controller
+          name="newMessage"
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              styles={{
+                input: {
+                  padding: '15px',
+                  border: 'none',
+                  borderRadius: '26px',
+                  backgroundColor: 'rgba(220, 201, 235, 0.2)',
+                },
+              }}
+              type="text"
+            />
+          )}
+        />
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
 };
@@ -102,6 +165,7 @@ const styles = stylex.create({
     height: '100%',
     overflow: 'hidden',
   },
+
   flex: {
     display: 'flex',
     alignItems: 'center',
@@ -109,18 +173,19 @@ const styles = stylex.create({
 
   bottomGrey: {
     padding: '24px',
-    borderBottomWidth: '1px',
-    borderBottomColor: '#dedede',
-    borderBottomStyle: 'solid',
+    border: '1px solid #dedede',
+  },
+
+  main: {
+    padding: '0 24px',
+    height: '80%',
+    overflow: 'auto',
   },
 
   ul: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    padding: '0 24px',
-    height: '460px',
-    overflow: 'auto',
   },
 
   center: {
@@ -138,9 +203,7 @@ const styles = stylex.create({
   user: {
     marginLeft: 'auto',
     backgroundColor: '#FEFEFF',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '#DCC9EB',
+    border: '1px solid #DCC9EB',
   },
 
   friend: {
@@ -150,5 +213,6 @@ const styles = stylex.create({
   form: {
     display: 'flex',
     gap: '10px',
+    padding: '15px 10px',
   },
 });

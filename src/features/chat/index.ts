@@ -7,6 +7,7 @@ export { default as NoData } from './ui/NoData';
 // hooks
 export { default as useRealTimeMessages } from './hooks/useRealTimeMessages';
 export { default as useMessages } from './hooks/useMessages';
+export { default as useIntersectionObserver } from './hooks/useIntersectionObserver';
 
 // model
 export { default as useChatsQuery } from './model/useChatsQuery';
