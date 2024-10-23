@@ -1,22 +1,23 @@
-import { navList } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 
-type NavItemType = {
+type NavItemProps = {
   children: React.ReactNode;
   isClicked: boolean;
   onClick: () => void;
 };
 
-type NavigationBarType = {
+type NavigationBarProps = {
   selectedNavItem: string;
   onClick: (i: string) => void;
 };
 
-const NavigationBar = ({ onClick, selectedNavItem }: NavigationBarType) => {
+const NAVLIST = ['채팅', '친구 목록', '설정'] as const;
+
+const NavigationBar = ({ onClick, selectedNavItem }: NavigationBarProps) => {
   return (
     <nav {...stylex.props(styles.box)}>
-      {navList.map((title) => (
+      {NAVLIST.map((title) => (
         <NavItem
           key={title}
           isClicked={title === selectedNavItem}
@@ -29,7 +30,7 @@ const NavigationBar = ({ onClick, selectedNavItem }: NavigationBarType) => {
   );
 };
 
-const NavItem = ({ children, isClicked, onClick }: NavItemType) => {
+const NavItem = ({ children, isClicked, onClick }: NavItemProps) => {
   return (
     <button
       {...stylex.props(
