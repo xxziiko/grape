@@ -1,6 +1,5 @@
-import { useMessagesQuery } from '@/features/chat';
+import { type Messages, useMessagesQuery } from '@/features/chat';
 import useRealTimeMessages from '@/features/chat/hooks/useRealTimeMessages';
-import type { Messages } from '@/shared';
 import { useEffect, useState } from 'react';
 
 const useMessages = (chatId: string | undefined) => {

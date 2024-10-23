@@ -1,8 +1,16 @@
-import type { TitleType } from '@/shared/types/client';
 import * as stylex from '@stylexjs/stylex';
+import type {
+  CompiledStyles,
+  StyleXArray,
+} from '@stylexjs/stylex/lib/StyleXTypes';
 import { memo } from 'react';
 
-const Title = ({ text, style }: TitleType) => {
+type TitleProps = {
+  text: string;
+  style?: StyleXArray<boolean | CompiledStyles | null | undefined>;
+};
+
+const Title = ({ text, style }: TitleProps) => {
   return (
     <p {...stylex.props(styles.textEllipsis, styles.title, style)}>{text}</p>
   );

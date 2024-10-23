@@ -1,4 +1,5 @@
-import { handleError, Messages, supabase } from '@/shared';
+import { handleError, supabase } from '@/shared';
+import type { Messages } from './types';
 
 export const fetchUserChats = async (userId: string | undefined) =>
   await supabase

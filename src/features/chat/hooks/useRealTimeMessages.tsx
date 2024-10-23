@@ -1,5 +1,6 @@
-import { type Messages, supabase } from '@/shared';
+import { supabase } from '@/shared';
 import { useEffect } from 'react';
+import type { Messages } from '@/features/chat';
 
 const useRealTimeMessages = (
   chatId: string | undefined,

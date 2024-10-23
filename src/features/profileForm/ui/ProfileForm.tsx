@@ -1,4 +1,4 @@
-import { FormLayout, InputWithLabel, type UserName } from '@/shared';
+import { FormLayout, InputWithLabel } from '@/shared';
 import { PersonIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { Avatar } from 'antd';
@@ -7,6 +7,10 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useUserNameMutation } from '..';
 import { useAtom } from 'jotai';
 import { userIdAtom } from '@/entities/auth';
+
+type UserName = {
+  userName: string;
+};
 
 const ProfileForm = () => {
   const {

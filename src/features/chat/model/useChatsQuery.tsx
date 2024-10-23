@@ -1,6 +1,6 @@
-import { type ChatItemType, handleError } from '@/shared';
+import { handleError } from '@/shared';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUserChats } from '@/features/chat';
+import { type ChatItem, fetchUserChats } from '@/features/chat';
 
 const useChatsQuery = (userId: string | undefined) => {
   const { error, ...rest } = useQuery({
@@ -9,7 +9,7 @@ const useChatsQuery = (userId: string | undefined) => {
     enabled: !!userId,
     select: (data) =>
       data?.map(
-        (chat): ChatItemType => ({
+        (chat): ChatItem => ({
           chatId: chat.chatid,
           friendId: chat.friend_id,
           friendName: chat.friend_name,
