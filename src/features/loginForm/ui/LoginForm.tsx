@@ -1,12 +1,11 @@
 import { checkEmailExists } from '@/entities/auth';
-import { useLoginMutation, useSignUpMutation } from '@/features/loginForm';
 import {
-  FormLayout,
-  InputWithLabel,
-  type UserInfo,
-  emailValidation,
-  passwordValidation,
-} from '@/shared';
+  EMAIL_VALIDATION,
+  PASSWORD_VALIDATION,
+  useLoginMutation,
+  useSignUpMutation,
+} from '@/features/loginForm';
+import { FormLayout, InputWithLabel, type UserInfo } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -48,7 +47,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit(handleSignUp)}
     >
       <InputWithLabel
-        register={register('email', emailValidation)}
+        register={register('email', EMAIL_VALIDATION)}
         label="이메일"
         placeholder="example@gamil.com"
         type="text"
@@ -56,7 +55,7 @@ const LoginForm = () => {
       <p {...stylex.props(styles.errors)}>{errors.email?.message}</p>
 
       <InputWithLabel
-        register={register('password', passwordValidation)}
+        register={register('password', PASSWORD_VALIDATION)}
         label="비밀번호"
         placeholder="영문포함 8~16자 이내"
         type="password"

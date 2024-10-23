@@ -1,11 +1,10 @@
-import { signInWithKakao } from '@/pages/home';
+import { GREETINGMESSAGES, signInWithKakao } from '@/pages/home';
 import {
   Bubble,
   ButtonBoxLayout,
   DefaultButton,
   KakaoIcon,
   PageLayout,
-  greetingMessages,
 } from '@/shared';
 import { Header } from '@/widgets';
 import * as stylex from '@stylexjs/stylex';
@@ -20,7 +19,7 @@ const HomePage = () => {
     <PageLayout style={styles.gradientBackground}>
       <Header />
       <main {...stylex.props(styles.main)}>
-        {greetingMessages?.map((el) => <Bubble key={el.id} data={el} />)}
+        {GREETINGMESSAGES?.map((el) => <Bubble key={el.id} data={el} />)}
 
         <div>
           <h2 {...stylex.props(styles.text)}>안녕하세요!</h2>
