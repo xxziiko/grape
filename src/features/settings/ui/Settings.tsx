@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import * as stylex from '@stylexjs/stylex';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { signOutUser } from '@/entities/auth';
 
 const MENU = ['비밀번호 설정하기', '닉네임 변경하기', '회원 탈퇴'] as const;
 const ROUTES = [
@@ -10,6 +11,12 @@ const ROUTES = [
 ] as const;
 
 const Settings = () => {
+  const navigation = useNavigate();
+
+  const handleSignOut = () => {
+    signOutUser().then(() => navigation({ to: '/' }));
+  };
+
   return (
     <main>
       <ul>
@@ -20,6 +27,10 @@ const Settings = () => {
             </Link>
           </li>
         ))}
+
+        <li {...stylex.props(styles.list)} onClick={handleSignOut}>
+          <p {...stylex.props(styles.text)}>로그아웃</p>
+        </li>
       </ul>
     </main>
   );
@@ -34,6 +45,7 @@ const styles = stylex.create({
     padding: '30px 0',
     width: '100%',
     borderBottom: '1px solid #dedede',
+    cursor: 'pointer',
   },
 
   text: {
