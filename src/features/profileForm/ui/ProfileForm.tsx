@@ -33,7 +33,7 @@ const ProfileForm = () => {
     (data) => {
       mutate({ userName: data.userName, userId });
     },
-    [mutate],
+    [mutate, userId],
   );
 
   return (
