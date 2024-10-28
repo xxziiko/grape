@@ -51,7 +51,7 @@ const styles = stylex.create({
   box: {
     display: 'flex',
     justifyContent: 'space-around',
-    height: '50px',
+    minHeight: '50px',
     gap: '50px',
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
