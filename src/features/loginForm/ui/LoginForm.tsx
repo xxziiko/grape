@@ -27,7 +27,7 @@ const LoginForm = () => {
   const buttonOptions = {
     command: '시작하기',
     disabled: !isValid,
-  };
+  } as const;
 
   const handleSignUp: SubmitHandler<UserInfo> = useCallback(
     async (data) => {
