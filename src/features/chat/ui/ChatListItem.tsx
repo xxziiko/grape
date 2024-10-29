@@ -1,5 +1,4 @@
 import { Title } from '@/shared';
-import type { ChatItemType } from '@/shared/types/client';
 import { PersonIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { Link } from '@tanstack/react-router';
@@ -7,8 +6,9 @@ import { Avatar } from 'antd';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { memo } from 'react';
+import type { ChatItem } from '@/features/chat';
 
-const ChatListItem = ({ data }: { data: ChatItemType }) => {
+const ChatListItem = ({ data }: { data: ChatItem }) => {
   const { friendName, isNew, latestMessage, chatId } = data;
   const relativeTime = formatDistanceToNow(new Date(latestMessage.created_at), {
     addSuffix: true,

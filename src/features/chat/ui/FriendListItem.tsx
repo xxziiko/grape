@@ -1,10 +1,10 @@
-import type { FriendType } from '@/shared';
 import { PersonIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { Avatar } from 'antd';
 import { memo } from 'react';
+import type { Friend } from '@/features/chat';
 
-const FriendListItem = ({ data }: { data: FriendType }) => {
+const FriendListItem = ({ data }: { data: Friend }) => {
   const { friendName } = data;
 
   return (

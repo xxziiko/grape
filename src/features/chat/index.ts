@@ -17,3 +17,6 @@ export { default as useMessageMutation } from './model/useMessageMutation';
 
 // apis
 export * from './apis';
+
+// types
+export * from './types';

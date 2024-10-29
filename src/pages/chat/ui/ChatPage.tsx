@@ -1,4 +1,5 @@
 import { ChatList, FriendList } from '@/features/chat';
+import { Settings } from '@/features/settings';
 import { PageLayout, SearchBar } from '@/shared';
 import { Header } from '@/widgets';
 import { NavigationBar } from '@/widgets/navigation';
@@ -14,11 +15,14 @@ const ChatPage = () => {
         onClick={setSelectedNavItem}
         selectedNavItem={selectedNavItem}
       />
-      <SearchBar />
+
+      {selectedNavItem !== '설정' && <SearchBar />}
 
       {selectedNavItem === '채팅' && <ChatList />}
 
       {selectedNavItem === '친구 목록' && <FriendList />}
+
+      {selectedNavItem === '설정' && <Settings />}
     </PageLayout>
   );
 };

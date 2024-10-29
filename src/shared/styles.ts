@@ -21,6 +21,9 @@ export const styles = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    padding: '0px',
+  },
+
+  errors: {
+    color: '#EE4A4A',
   },
 });

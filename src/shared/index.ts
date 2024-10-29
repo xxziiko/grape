@@ -19,14 +19,11 @@ export * from './types/client';
 export { default as KakaoIcon } from './assets/KakaoIcon';
 export { default as PersonWithCheckIcon } from './assets/PersonWithCheckIcon';
 
-// constants
-export * from './constants';
-
 // utils
 export * from './utils';
 
 // apis
 export * from './apis';
 
-//styles
+// styles
 export * from './styles';

@@ -21,6 +21,15 @@ import { Route as AuthImport } from './routes/_auth'
 const PubIndexLazyImport = createFileRoute('/_pub/')()
 const PubLoginIndexLazyImport = createFileRoute('/_pub/login/')()
 const AuthChatIndexLazyImport = createFileRoute('/_auth/chat/')()
+const AuthSettingsProfileSetupLazyImport = createFileRoute(
+  '/_auth/settings/profile-setup',
+)()
+const AuthSettingsPasswordSettingsLazyImport = createFileRoute(
+  '/_auth/settings/password-settings',
+)()
+const AuthSettingsDeleteAccountLazyImport = createFileRoute(
+  '/_auth/settings/delete-account',
+)()
 const AuthLoginProfileSetupLazyImport = createFileRoute(
   '/_auth/login/profile-setup',
 )()
@@ -56,6 +65,32 @@ const AuthChatIndexLazyRoute = AuthChatIndexLazyImport.update({
 } as any).lazy(() =>
   import('./routes/_auth.chat.index.lazy').then((d) => d.Route),
 )
+
+const AuthSettingsProfileSetupLazyRoute =
+  AuthSettingsProfileSetupLazyImport.update({
+    path: '/settings/profile-setup',
+    getParentRoute: () => AuthRoute,
+  } as any).lazy(() =>
+    import('./routes/_auth.settings.profile-setup.lazy').then((d) => d.Route),
+  )
+
+const AuthSettingsPasswordSettingsLazyRoute =
+  AuthSettingsPasswordSettingsLazyImport.update({
+    path: '/settings/password-settings',
+    getParentRoute: () => AuthRoute,
+  } as any).lazy(() =>
+    import('./routes/_auth.settings.password-settings.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthSettingsDeleteAccountLazyRoute =
+  AuthSettingsDeleteAccountLazyImport.update({
+    path: '/settings/delete-account',
+    getParentRoute: () => AuthRoute,
+  } as any).lazy(() =>
+    import('./routes/_auth.settings.delete-account.lazy').then((d) => d.Route),
+  )
 
 const AuthLoginProfileSetupLazyRoute = AuthLoginProfileSetupLazyImport.update({
   path: '/login/profile-setup',
@@ -110,6 +145,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginProfileSetupLazyImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/settings/delete-account': {
+      id: '/_auth/settings/delete-account'
+      path: '/settings/delete-account'
+      fullPath: '/settings/delete-account'
+      preLoaderRoute: typeof AuthSettingsDeleteAccountLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/settings/password-settings': {
+      id: '/_auth/settings/password-settings'
+      path: '/settings/password-settings'
+      fullPath: '/settings/password-settings'
+      preLoaderRoute: typeof AuthSettingsPasswordSettingsLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/settings/profile-setup': {
+      id: '/_auth/settings/profile-setup'
+      path: '/settings/profile-setup'
+      fullPath: '/settings/profile-setup'
+      preLoaderRoute: typeof AuthSettingsProfileSetupLazyImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/chat/': {
       id: '/_auth/chat/'
       path: '/chat'
@@ -133,6 +189,9 @@ export const routeTree = rootRoute.addChildren({
   AuthRoute: AuthRoute.addChildren({
     AuthChatChatIdLazyRoute,
     AuthLoginProfileSetupLazyRoute,
+    AuthSettingsDeleteAccountLazyRoute,
+    AuthSettingsPasswordSettingsLazyRoute,
+    AuthSettingsProfileSetupLazyRoute,
     AuthChatIndexLazyRoute,
   }),
   PubRoute: PubRoute.addChildren({ PubIndexLazyRoute, PubLoginIndexLazyRoute }),
@@ -155,6 +214,9 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_auth/chat/$chatId",
         "/_auth/login/profile-setup",
+        "/_auth/settings/delete-account",
+        "/_auth/settings/password-settings",
+        "/_auth/settings/profile-setup",
         "/_auth/chat/"
       ]
     },
@@ -175,6 +237,18 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_auth/login/profile-setup": {
       "filePath": "_auth.login.profile-setup.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/settings/delete-account": {
+      "filePath": "_auth.settings.delete-account.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/settings/password-settings": {
+      "filePath": "_auth.settings.password-settings.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/settings/profile-setup": {
+      "filePath": "_auth.settings.profile-setup.lazy.tsx",
       "parent": "/_auth"
     },
     "/_auth/chat/": {
