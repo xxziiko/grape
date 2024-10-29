@@ -22,4 +22,8 @@ export const styles = stylex.create({
     flexDirection: 'column',
     gap: '20px',
   },
+
+  errors: {
+    color: '#EE4A4A',
+  },
 });
