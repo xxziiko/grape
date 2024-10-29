@@ -5,7 +5,7 @@ import {
   useLoginMutation,
   useSignUpMutation,
 } from '@/features/loginForm';
-import { FormLayout, InputWithLabel, type UserInfo } from '@/shared';
+import { FormLayout, InputWithLabel, styles, type UserInfo } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -66,9 +66,3 @@ const LoginForm = () => {
 };
 
 export default memo(LoginForm);
-
-const styles = stylex.create({
-  errors: {
-    color: '#EE4A4A',
-  },
-});
