@@ -14,15 +14,27 @@ const useMessages = (chatId: string | undefined) => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = useMessagesQuery(chatId, realtimeCount);
+  } = useMessagesQuery(chatId); // realtimeCount 제거
 
-  useRealTimeMessages(chatId, setRealtimeMessages, setRealtimeCount);
+  useRealTimeMessages(chatId, (newMessage) => {
+    setRealtimeMessages((prev) => [...prev, newMessage]);
+    setRealtimeCount((prev) => prev + 1);
+  });
 
   useEffect(() => {
-    if (data) {
-      const mergedMessages = [...data, ...realtimeMessages];
-      setMessages(mergedMessages);
-    }
+    if (!data) return;
+
+    // 메시지 정렬 및 중복 제거
+    const allMessages = [...data, ...realtimeMessages].sort(
+      (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+    );
+
+    const uniqueMessages = Array.from(
+      new Map(allMessages.map((msg) => [msg.id, msg])).values(),
+    );
+
+    setMessages(uniqueMessages);
   }, [data, realtimeMessages]);
 
   return {

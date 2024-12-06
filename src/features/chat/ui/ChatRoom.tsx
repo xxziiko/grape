@@ -9,7 +9,7 @@ import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
 import { Input } from 'antd';
 import { useAtom } from 'jotai';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 type SendMessage = {
@@ -21,27 +21,59 @@ const ChatRoom = () => {
   const location = useLocation();
   const { chatId } = useParams({ strict: false });
 
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { handleSubmit, reset, control } = useForm<SendMessage>();
   const chatRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLLIElement | null>(null);
   const [userId] = useAtom(userIdAtom);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const prevScrollHeight = useRef(0);
 
-  const queryParams = new URLSearchParams(location.search);
-  const friendName = queryParams.get('friendName') || '';
+  const queryParams = useMemo(() => {
+    return new URLSearchParams(location.search);
+  }, [location.search]);
 
-  const {
-    messages,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    realtimeCount,
-  } = useMessages(chatId);
+  const friendName = useMemo(
+    () => queryParams.get('friendName') || '',
+    [queryParams],
+  );
+
+  const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useMessages(chatId);
+
   const { mutate } = useMessageMutation();
+  const [scrollPosition, setScrollPosition] = useState<number | null>(null);
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+    setAutoScroll(isNearBottom);
+  }, []);
+
+  useEffect(() => {
+    if (!chatRef.current?.parentElement) return;
+    const chatContainer = chatRef.current.parentElement;
+
+    if (scrollPosition !== null) {
+      // 이전 메시지 로드 시 스크롤 위치 유지
+      const scrollDiff = chatContainer.scrollHeight - prevScrollHeight.current;
+      chatContainer.scrollTop = scrollPosition + scrollDiff;
+      setScrollPosition(null);
+    } else if (autoScroll) {
+      // 새 메시지 도착 시 자동 스크롤
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    prevScrollHeight.current = chatContainer.scrollHeight;
+  }, [messages, scrollPosition, autoScroll]);
+
   const observe = useIntersectionObserver(
     () => {
-      if (!isFetchingNextPage && hasNextPage) {
+      if (
+        !isFetchingNextPage &&
+        hasNextPage &&
+        chatRef.current?.parentElement
+      ) {
+        setScrollPosition(chatRef.current.parentElement.scrollTop);
         fetchNextPage();
       }
     },
@@ -50,39 +82,25 @@ const ChatRoom = () => {
 
   const SendMessages: SubmitHandler<SendMessage> = useCallback(
     async (data: SendMessage) => {
-      if (userId && data) {
-        mutate({
-          chat_id: chatId,
-          user_id: userId,
-          body: data.newMessage,
-        });
-        reset();
-      }
-    },
+      if (!userId || !data.newMessage.trim()) return;
 
-    [chatId, userId, mutate],
+      mutate({
+        chat_id: chatId,
+        user_id: userId,
+        body: data.newMessage,
+      });
+      reset();
+    },
+    [chatId, userId, mutate, reset],
   );
 
   useEffect(() => {
-    if (loadMoreRef.current) observe(loadMoreRef.current);
+    const currentRef = loadMoreRef.current;
+    if (currentRef) {
+      observe(currentRef);
+      return () => observe(currentRef);
+    }
   }, [observe]);
-
-  useEffect(() => {
-    if (chatRef.current && realtimeCount > 0) {
-      chatRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-    }
-  }, [realtimeCount, messages]);
-
-  useEffect(() => {
-    if (chatRef.current && isInitialLoad) {
-      chatRef.current.scrollIntoView({
-        block: 'end',
-      });
-      setIsInitialLoad(false);
-    }
-  }, [isInitialLoad, messages]);
-
-  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div {...stylex.props(styles.box)}>
@@ -98,7 +116,7 @@ const ChatRoom = () => {
         </div>
       </div>
 
-      <main {...stylex.props(styles.main)}>
+      <main {...stylex.props(styles.main)} onScroll={handleScroll}>
         <ul {...stylex.props(styles.ul)}>
           {/** TODO: UI 수정*/}
 
@@ -157,7 +175,6 @@ const ChatRoom = () => {
     </div>
   );
 };
-
 export default memo(ChatRoom);
 
 const styles = stylex.create({

@@ -1,17 +1,23 @@
 import { supabase } from '@/shared';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import type { Messages } from '@/features/chat';
 
 const useRealTimeMessages = (
   chatId: string | undefined,
-  setMessages: React.Dispatch<React.SetStateAction<Messages[]>>,
-  setRealtimeCount: React.Dispatch<React.SetStateAction<number>>,
+  onNewMessage: (message: Messages) => void,
 ) => {
+  const handleNewMessage = useCallback(
+    (payload: { new: Messages }) => {
+      onNewMessage(payload.new);
+    },
+    [onNewMessage],
+  );
+
   useEffect(() => {
     if (!chatId) return;
 
     const channel = supabase
-      .channel('messages')
+      .channel(`messages-${chatId}`)
       .on(
         'postgres_changes',
         {
@@ -20,18 +26,14 @@ const useRealTimeMessages = (
           table: 'messages',
           filter: `chat_id=eq.${chatId}`,
         },
-        (payload) => {
-          setMessages((prevData) => [...prevData, payload.new as Messages]);
-
-          setRealtimeCount((prev) => prev + 1);
-        },
+        handleNewMessage,
       )
       .subscribe();
 
     return () => {
       channel.unsubscribe();
     };
-  }, [chatId, setMessages]);
+  }, [chatId, handleNewMessage]);
 };
 
 export default useRealTimeMessages;
