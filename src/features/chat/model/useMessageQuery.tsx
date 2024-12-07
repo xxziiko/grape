@@ -1,6 +1,5 @@
-import { handleError, queryClient, supabase } from '@/shared';
+import { handleError, supabase } from '@/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 
 const PAGE_SIZE = 20;
 
@@ -23,15 +22,12 @@ const useMessagesQuery = (chatId: string | undefined) => {
     select: (data) => data.pages.flat().reverse(),
     enabled: !!chatId,
     initialPageParam: 0,
-    staleTime: 1000 * 60, // 1분
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60 * 5,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
-
-  // 컴포넌트 언마운트 시 쿼리 정리
-  useEffect(() => {
-    return () => {
-      if (chatId) queryClient.removeQueries({ queryKey: ['messages', chatId] });
-    };
-  }, [chatId]);
 
   return handleError({ data: rest, error });
 };
