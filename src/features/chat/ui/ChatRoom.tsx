@@ -20,34 +20,62 @@ const ChatRoom = () => {
   const router = useRouter();
   const location = useLocation();
   const { chatId } = useParams({ strict: false });
-
-  const { handleSubmit, reset, control } = useForm<SendMessage>();
+  const prevScrollHeight = useRef(0);
   const chatRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLLIElement | null>(null);
-  const [userId] = useAtom(userIdAtom);
-  const [autoScroll, setAutoScroll] = useState(true);
-  const prevScrollHeight = useRef(0);
 
-  const queryParams = useMemo(() => {
-    return new URLSearchParams(location.search);
-  }, [location.search]);
+  const { handleSubmit, reset, control } = useForm<SendMessage>();
+  const [userId] = useAtom(userIdAtom);
+
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState<number | null>(null);
+
+  const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useMessages(chatId);
+  const { mutate } = useMessageMutation();
+  const observe = useIntersectionObserver(
+    () => {
+      if (
+        !isFetchingNextPage &&
+        hasNextPage &&
+        chatRef.current?.parentElement
+      ) {
+        setScrollPosition(chatRef.current.parentElement.scrollTop);
+        fetchNextPage();
+      }
+    },
+    { threshold: 0.5 },
+  );
+
+  const queryParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  );
 
   const friendName = useMemo(
     () => queryParams.get('friendName') ?? '',
     [queryParams],
   );
 
-  const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useMessages(chatId);
-
-  const { mutate } = useMessageMutation();
-  const [scrollPosition, setScrollPosition] = useState<number | null>(null);
-
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
     const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
     setAutoScroll(isNearBottom);
   }, []);
+
+  const SendMessages: SubmitHandler<SendMessage> = useCallback(
+    async (data: SendMessage) => {
+      if (!userId || !data.newMessage.trim()) return;
+
+      mutate({
+        chat_id: chatId,
+        user_id: userId,
+        body: data.newMessage,
+      });
+      reset();
+    },
+    [chatId, userId, mutate, reset],
+  );
 
   useEffect(() => {
     if (!chatRef.current?.parentElement) return;
@@ -65,34 +93,6 @@ const ChatRoom = () => {
 
     prevScrollHeight.current = chatContainer.scrollHeight;
   }, [messages, scrollPosition, autoScroll]);
-
-  const observe = useIntersectionObserver(
-    () => {
-      if (
-        !isFetchingNextPage &&
-        hasNextPage &&
-        chatRef.current?.parentElement
-      ) {
-        setScrollPosition(chatRef.current.parentElement.scrollTop);
-        fetchNextPage();
-      }
-    },
-    { threshold: 0.5 },
-  );
-
-  const SendMessages: SubmitHandler<SendMessage> = useCallback(
-    async (data: SendMessage) => {
-      if (!userId || !data.newMessage.trim()) return;
-
-      mutate({
-        chat_id: chatId,
-        user_id: userId,
-        body: data.newMessage,
-      });
-      reset();
-    },
-    [chatId, userId, mutate, reset],
-  );
 
   useEffect(() => {
     const currentRef = loadMoreRef.current;
