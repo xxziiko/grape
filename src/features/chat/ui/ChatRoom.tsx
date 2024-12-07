@@ -33,7 +33,7 @@ const ChatRoom = () => {
   }, [location.search]);
 
   const friendName = useMemo(
-    () => queryParams.get('friendName') || '',
+    () => queryParams.get('friendName') ?? '',
     [queryParams],
   );
 
