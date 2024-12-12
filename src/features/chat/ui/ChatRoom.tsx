@@ -4,7 +4,7 @@ import {
   useMessageMutation,
   useMessages,
 } from '@/features/chat';
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import { ChevronLeftIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
 import { Input } from 'antd';
@@ -33,6 +33,7 @@ const ChatRoom = () => {
   const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useMessages(chatId);
   const { mutate } = useMessageMutation();
+
   const observe = useIntersectionObserver(
     () => {
       if (
@@ -170,7 +171,7 @@ const ChatRoom = () => {
             />
           )}
         />
-        <button type="submit">Send</button>
+        <PaperPlaneIcon type="submit" {...stylex.props(styles.button)} />
       </form>
     </div>
   );
@@ -231,5 +232,16 @@ const styles = stylex.create({
     display: 'flex',
     gap: '10px',
     padding: '15px 10px',
+  },
+
+  button: {
+    width: '40px',
+    height: '50px',
+    color: '#DCC9EB',
+    cursor: 'pointer',
+
+    ':active': {
+      color: '#dedede',
+    },
   },
 });
