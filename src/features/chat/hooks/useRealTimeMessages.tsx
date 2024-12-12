@@ -17,7 +17,7 @@ const useRealTimeMessages = (
     if (!chatId) return;
 
     const channel = supabase
-      .channel(`messages-${chatId}`)
+      .channel('messages')
       .on(
         'postgres_changes',
         {
