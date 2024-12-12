@@ -195,7 +195,7 @@ const styles = stylex.create({
   },
 
   main: {
-    padding: '0 24px',
+    padding: '10px 24px  0',
     height: '80%',
     overflow: 'auto',
   },
