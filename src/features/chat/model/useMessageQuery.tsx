@@ -1,43 +1,34 @@
-import { handleError, queryClient, supabase } from '@/shared';
+import { handleError, supabase } from '@/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { Messages } from '../types';
 
-const useMessagesQuery = (
-  chatId: string | undefined,
-  realtimeCount: number,
-) => {
+const PAGE_SIZE = 20;
+
+const useMessagesQuery = (chatId: string | undefined) => {
   const { error, ...rest } = useInfiniteQuery({
     queryKey: ['messages', chatId],
-    queryFn: async ({ pageParam }) => {
-      const start = pageParam * 20 + realtimeCount;
-      const end = (pageParam + 1) * 20 - 1;
-
-      const { data } = await supabase
+    queryFn: async ({ pageParam = 0 }) => {
+      const { data, error } = await supabase
         .from('messages')
         .select('*')
         .eq('chat_id', chatId)
         .order('created_at', { ascending: false })
-        .range(start, end);
+        .range(pageParam * PAGE_SIZE, (pageParam + 1) * PAGE_SIZE - 1);
 
+      if (error) throw error;
       return data || [];
     },
-    getNextPageParam: (lastPage, _, lastPageParams) => {
-      return lastPage.length < 20 ? null : (lastPageParams as number) + 1;
-    },
-
-    select: (data) => {
-      return data.pages.flat().reverse();
-    },
-
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === PAGE_SIZE ? allPages.length : undefined,
+    select: (data) => data.pages.flat().reverse() as Messages[],
     enabled: !!chatId,
     initialPageParam: 0,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60 * 5,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
-
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries({ queryKey: ['messages', chatId] });
-    };
-  }, []);
 
   return handleError({ data: rest, error });
 };

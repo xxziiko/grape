@@ -1,11 +1,11 @@
 import { type Messages, useMessagesQuery } from '@/features/chat';
 import useRealTimeMessages from '@/features/chat/hooks/useRealTimeMessages';
 import { useEffect, useState } from 'react';
+import { debounce } from 'es-toolkit';
 
 const useMessages = (chatId: string | undefined) => {
   const [messages, setMessages] = useState<Messages[]>([]);
   const [realtimeMessages, setRealtimeMessages] = useState<Messages[]>([]);
-  const [realtimeCount, setRealtimeCount] = useState(0);
 
   const {
     data,
@@ -14,15 +14,30 @@ const useMessages = (chatId: string | undefined) => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = useMessagesQuery(chatId, realtimeCount);
+  } = useMessagesQuery(chatId);
 
-  useRealTimeMessages(chatId, setRealtimeMessages, setRealtimeCount);
+  const updateMessages = debounce((newMessages: Messages[]) => {
+    setRealtimeMessages((prev) => [...prev, ...newMessages]);
+  }, 300);
+
+  useRealTimeMessages(chatId, (newMessage) => {
+    updateMessages([newMessage]);
+  });
 
   useEffect(() => {
-    if (data) {
-      const mergedMessages = [...data, ...realtimeMessages];
-      setMessages(mergedMessages);
-    }
+    if (!data) return;
+
+    const allMessages = [...data, ...realtimeMessages].sort(
+      (a, b) =>
+        new Date(a.created_at ?? '0').getTime() -
+        new Date(b.created_at ?? '0').getTime(),
+    );
+
+    const uniqueMessages = Array.from(
+      new Map(allMessages.map((msg) => [msg.id, msg])).values(),
+    );
+
+    setMessages(uniqueMessages);
   }, [data, realtimeMessages]);
 
   return {
@@ -31,7 +46,6 @@ const useMessages = (chatId: string | undefined) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    realtimeCount,
     refetch,
   };
 };
