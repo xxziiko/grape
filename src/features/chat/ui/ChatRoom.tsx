@@ -32,7 +32,7 @@ const ChatRoom = () => {
 
   const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useMessages(chatId);
-  const { mutate } = useMessageMutation();
+  const { mutate } = useMessageMutation({ chatId });
 
   const observe = useIntersectionObserver(
     () => {
@@ -87,7 +87,9 @@ const ChatRoom = () => {
       const scrollDiff = chatContainer.scrollHeight - prevScrollHeight.current;
       chatContainer.scrollTop = scrollPosition + scrollDiff;
       setScrollPosition(null);
-    } else if (autoScroll) {
+    }
+
+    if (autoScroll) {
       // 새 메시지 도착 시 자동 스크롤
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
