@@ -1,21 +1,27 @@
-import { PersonIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
-import { Avatar } from 'antd';
 import { memo } from 'react';
 import type { Friend } from '@/features/chat';
+import { AvatarIcon } from '@/shared';
+import { Skeleton } from 'antd';
 
-const FriendListItem = ({ data }: { data: Friend }) => {
+const FriendListItem = ({
+  data,
+  isLoading,
+}: {
+  data: Friend;
+  isLoading: boolean;
+}) => {
   const { friendName } = data;
 
   return (
     <li {...stylex.props(styles.flexCenter, styles.box)}>
-      <div>
-        <Avatar size={50} icon={<PersonIcon width={30} height={30} />} />
-      </div>
+      <AvatarIcon width={35} height={35} />
 
-      <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
-        <p {...stylex.props(styles.name)}>{friendName}</p>
-      </div>
+      <Skeleton loading={isLoading}>
+        <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
+          <p {...stylex.props(styles.name)}>{friendName}</p>
+        </div>
+      </Skeleton>
     </li>
   );
 };

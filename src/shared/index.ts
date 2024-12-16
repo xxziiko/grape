@@ -5,6 +5,7 @@ export { default as Bubble } from './ui/components/Bubble';
 export { default as SearchBar } from './ui/components/SearchBar';
 export { default as Title } from './ui/components/Title';
 export { default as ProfileSetup } from './ui/components/ProfileSetup';
+export { default as AvatarIcon } from './ui/components/AvatarIcon';
 
 // layouts
 export { default as PageLayout } from './ui/layouts/PageLayout';
