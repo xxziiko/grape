@@ -1,14 +1,20 @@
-import { Title } from '@/shared';
-import { PersonIcon } from '@radix-ui/react-icons';
+import { AvatarIcon, Title } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { Link } from '@tanstack/react-router';
-import { Avatar } from 'antd';
+
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { memo } from 'react';
 import type { ChatItem } from '@/features/chat';
+import { Skeleton } from '@radix-ui/themes';
 
-const ChatListItem = ({ data }: { data: ChatItem }) => {
+const ChatListItem = ({
+  data,
+  isLoading = true,
+}: {
+  data: ChatItem;
+  isLoading: boolean;
+}) => {
   const { friendName, isNew, latestMessage, chatId } = data;
   const relativeTime = formatDistanceToNow(new Date(latestMessage.created_at), {
     addSuffix: true,
@@ -22,21 +28,24 @@ const ChatListItem = ({ data }: { data: ChatItem }) => {
       search={{ friendName: friendName }}
     >
       <li {...stylex.props(styles.flexCenter, styles.box)}>
-        <div>
-          <Avatar size={50} icon={<PersonIcon width={30} height={30} />} />
-        </div>
+        <AvatarIcon width={35} height={35} />
 
-        <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
-          <div {...stylex.props(styles.flexColumn)}>
-            <p {...stylex.props(styles.name)}>{friendName}</p>
+        <Skeleton loading={isLoading}>
+          <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
+            <div {...stylex.props(styles.flexColumn)}>
+              <p {...stylex.props(styles.name)}>{friendName}</p>
 
-            <Title text={latestMessage.body} style={!isNew && styles.isRead} />
+              <Title
+                text={latestMessage.body}
+                style={!isNew && styles.isRead}
+              />
+            </div>
+
+            <div>
+              <Title text={relativeTime} style={!isNew && styles.isRead} />
+            </div>
           </div>
-
-          <div>
-            <Title text={relativeTime} style={!isNew && styles.isRead} />
-          </div>
-        </div>
+        </Skeleton>
       </li>
     </Link>
   );

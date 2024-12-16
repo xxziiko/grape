@@ -8,9 +8,12 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { routeTree } from './routeTree.gen';
-import '@/apps/global.css';
 import { Provider } from 'jotai';
 import Error from '@/pages/Error';
+import { Theme } from '@radix-ui/themes';
+
+import '@/apps/global.css';
+import '@radix-ui/themes/styles.css';
 
 const router = createRouter({ routeTree });
 
@@ -37,7 +40,9 @@ if (!rootElement.innerHTML) {
               )}
             >
               <Provider>
-                <RouterProvider router={router} />
+                <Theme style={{ height: '100%' }}>
+                  <RouterProvider router={router} />
+                </Theme>
               </Provider>
             </ErrorBoundary>
           )}
