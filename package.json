@@ -18,7 +18,6 @@
     "@supabase/supabase-js": "^2.45.0",
     "@tanstack/react-query": "^5.51.14",
     "@tanstack/react-router": "^1.45.11",
-    "antd": "^5.19.4",
     "date-fns": "^3.6.0",
     "es-toolkit": "^1.29.0",
     "jotai": "^2.10.0",
