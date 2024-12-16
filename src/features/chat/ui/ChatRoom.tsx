@@ -5,9 +5,9 @@ import {
   useMessages,
 } from '@/features/chat';
 import { ChevronLeftIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
+import { TextField } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
-import { Input } from 'antd';
 import { useAtom } from 'jotai';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,7 +24,11 @@ const ChatRoom = () => {
   const chatRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLLIElement | null>(null);
 
-  const { handleSubmit, reset, control } = useForm<SendMessage>();
+  const { handleSubmit, reset, control } = useForm<SendMessage>({
+    defaultValues: {
+      newMessage: '',
+    },
+  });
   const [userId] = useAtom(userIdAtom);
 
   const [autoScroll, setAutoScroll] = useState(true);
@@ -121,8 +125,6 @@ const ChatRoom = () => {
 
       <main {...stylex.props(styles.main)} onScroll={handleScroll}>
         <ul {...stylex.props(styles.ul)}>
-          {/** TODO: UI 수정*/}
-
           {messages?.map((message, i) =>
             i === 10 ? (
               <li
@@ -159,21 +161,28 @@ const ChatRoom = () => {
           name="newMessage"
           control={control}
           render={({ field }) => (
-            <Input
+            <TextField.Root
               {...field}
-              styles={{
-                input: {
-                  padding: '15px',
-                  border: 'none',
-                  borderRadius: '26px',
-                  backgroundColor: 'rgba(220, 201, 235, 0.2)',
-                },
+              variant="soft"
+              size={'2'}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '26px',
+                backgroundColor: 'rgba(220, 201, 235, 0.2)',
               }}
               type="text"
-            />
+            >
+              <TextField.Slot />
+              <TextField.Slot>
+                <PaperPlaneIcon
+                  type="submit"
+                  {...stylex.props(styles.button)}
+                />
+              </TextField.Slot>
+            </TextField.Root>
           )}
         />
-        <PaperPlaneIcon type="submit" {...stylex.props(styles.button)} />
       </form>
     </div>
   );

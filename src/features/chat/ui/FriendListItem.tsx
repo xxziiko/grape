@@ -2,7 +2,7 @@ import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 import type { Friend } from '@/features/chat';
 import { AvatarIcon } from '@/shared';
-import { Skeleton } from 'antd';
+import { Skeleton } from '@radix-ui/themes';
 
 const FriendListItem = ({
   data,
