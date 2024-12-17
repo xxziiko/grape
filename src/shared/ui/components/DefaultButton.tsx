@@ -40,7 +40,8 @@ const styles = stylex.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
-    minHeight: '60px',
+    height: '50px',
+    width: '100%',
     background: {
       default: 'rgba(220, 201, 235, 0.4)',
       ':hover': {
