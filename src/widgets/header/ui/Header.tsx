@@ -1,7 +1,8 @@
+import Modal from '@/shared/ui/components/Modal';
 import { ChevronLeftIcon, PlusIcon } from '@radix-ui/react-icons';
+import { IconButton } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
 import { useRouter } from '@tanstack/react-router';
-
 import { memo } from 'react';
 
 type HeaderProps = {
@@ -32,7 +33,26 @@ const Header = (props: HeaderProps) => {
         </div>
 
         {isPlusIconVisible && (
-          <PlusIcon width={30} height={30} cursor={'pointer'} color="#9e9e9e" />
+          <Modal
+            title="친구 추가"
+            description="등록하실 친구이름을 입력해주세요"
+            command="취소"
+            triggerButton={
+              <IconButton
+                variant="ghost"
+                radius="full"
+                color="gray"
+                highContrast
+              >
+                <PlusIcon
+                  width={30}
+                  height={30}
+                  cursor={'pointer'}
+                  color="#9e9e9e"
+                />
+              </IconButton>
+            }
+          />
         )}
       </div>
 
