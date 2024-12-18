@@ -1,20 +1,46 @@
 import { AlertDialog, Flex } from '@radix-ui/themes';
 import { memo } from 'react';
-import DefaultButton from './DefaultButton';
 
 type Modal = {
   title: string;
-  command: string;
-  description: React.ReactNode;
+  content: React.ReactNode;
   triggerButton: React.ReactNode;
-  // onClick: () => void;
+  actionButton?: React.ReactNode;
+  cancelButton?: React.ReactNode;
+  disabled?: boolean;
 };
 
 const Modal = (props: Modal) => {
-  const { title, description, command, triggerButton } = props;
+  const {
+    title,
+    content,
+    triggerButton,
+    actionButton,
+    cancelButton,
+    disabled,
+  } = props;
 
   return (
     <AlertDialog.Root>
+      <AlertDialog.Trigger>{triggerButton}</AlertDialog.Trigger>
+      <AlertDialog.Content aria-describedby={undefined}>
+        <AlertDialog.Title>{title}</AlertDialog.Title>
+
+        <Flex gap="3" mb="5" direction="column">
+          {content}
+        </Flex>
+
+        <Flex gap="3" justify="center">
+          {!!cancelButton && (
+            <AlertDialog.Action disabled={disabled}>
+              {cancelButton}
+            </AlertDialog.Action>
+          )}
+          {!!actionButton && (
+            <AlertDialog.Action>{actionButton}</AlertDialog.Action>
+          )}
+        </Flex>
+      </AlertDialog.Content>
     </AlertDialog.Root>
   );
 };
