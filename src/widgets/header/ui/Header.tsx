@@ -1,10 +1,8 @@
-import { DefaultButton } from '@/shared';
-import Modal from '@/shared/ui/components/Modal';
-import { ChevronLeftIcon, PlusIcon } from '@radix-ui/react-icons';
-import { IconButton, TextField } from '@radix-ui/themes';
+import { memo } from 'react';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { useRouter } from '@tanstack/react-router';
-import { memo, useState } from 'react';
+import { AddFriendIconButton } from '@/features/chat';
 
 type HeaderProps = {
   isBackIconVisible?: boolean;
@@ -16,7 +14,6 @@ type HeaderProps = {
 const Header = (props: HeaderProps) => {
   const router = useRouter();
   const { isBackIconVisible = false, isPlusIconVisible = false, title } = props;
-  const [disabledButton, setDisabledButton] = useState(true);
 
   const onBack = () => router.history.back();
 
@@ -34,41 +31,7 @@ const Header = (props: HeaderProps) => {
           )}
         </div>
 
-        {isPlusIconVisible && (
-          <Modal
-            title="친구 추가"
-            content={
-              <>
-                <p {...stylex.props(styles.description)}>
-                  등록하실 친구이름을 입력해주세요
-                </p>
-                <TextField.Root radius="full">
-                  <TextField.Slot />
-                </TextField.Root>
-              </>
-            }
-            triggerButton={
-              <IconButton
-                variant="ghost"
-                radius="full"
-                color="gray"
-                highContrast
-              >
-                <PlusIcon
-                  width={30}
-                  height={30}
-                  cursor={'pointer'}
-                  color="#9e9e9e"
-                />
-              </IconButton>
-            }
-            actionButton={
-              <DefaultButton command="등록" disabled={disabledButton} />
-            }
-            cancelButton={<DefaultButton command="취소" styleType="error" />}
-            disabled={disabledButton}
-          />
-        )}
+        {isPlusIconVisible && <AddFriendIconButton />}
       </div>
 
       {title && <div {...stylex.props(styles.text)}>{title}</div>}
@@ -96,10 +59,5 @@ const styles = stylex.create({
   icons: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  description: {
-    fontSize: '15px',
-    fontWeight: 500,
   },
 });
