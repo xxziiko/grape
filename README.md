@@ -4,6 +4,35 @@
 
 <br/>
 
+### 기술 스택
+
+- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
+- **Database**: Supabase
+- **Deployment**: Vercel
+
+<br/>
+
+### ERD Diagram
+<img width="1123" alt="diagram" src="https://github.com/user-attachments/assets/1a065468-4449-4975-8d14-8f9486032c0a" />
+
+
+## UI Design
+![UI](https://github.com/user-attachments/assets/fabbc9e4-cca7-4c17-a94f-bbd064a9a06d)
+
+<br/>
+
+### 주요 기능
+
+- 회원가입/로그인
+- 프로필 설정
+- 1:1 채팅
+- 친구 추가
+- 비밀번호 변경
+- 로그아웃
+
+
+<br/>
+
 ### 프로젝트 목적
 
 1. **React 렌더링 과정과 상태 관리에 대한 이해**
@@ -28,28 +57,10 @@
 ### 학습 내용
 |제목|
 |---|
+|[WebSocket과 실시간 웹 애플리케이션](https://velog.io/@xxziiko/WebSocket%EA%B3%BC-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%9B%B9-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98)|
 |[Context API와 Jotai: 인증 상태 관리를 어떻게 더 효율적으로 만들까?](https://velog.io/@xxziiko/Context-API%EC%99%80-Jotai)
 |[Context API 리렌더링과 React.memo의 한계](https://velog.io/@xxziiko/Context-API-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EB%A6%AC%EB%A0%8C%EB%8D%94%EB%A7%81-%EB%AC%B8%EC%A0%9C%EC%99%80-React.memo%EC%9D%98-%ED%95%9C%EA%B3%84)
 
-<br/>
-
-
-### 기술 스택
-
-- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
-- **Database**: Supabase
-- **Deployment**: Vercel
-
-<br/>
-
-### 주요 기능
-
-- 회원가입/로그인
-- 프로필 설정
-- 1:1 채팅
-- 친구 추가
-- 비밀번호 변경
-- 로그아웃
 
 
 <br/>
