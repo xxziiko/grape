@@ -12,7 +12,7 @@
 
 <br/>
 
-### ERD Diagram
+### ERD
 <img width="1123" alt="diagram" src="https://github.com/user-attachments/assets/1a065468-4449-4975-8d14-8f9486032c0a" />
 
 
