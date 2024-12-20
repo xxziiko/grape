@@ -6,6 +6,7 @@ export { default as SearchBar } from './ui/components/SearchBar';
 export { default as Title } from './ui/components/Title';
 export { default as ProfileSetup } from './ui/components/ProfileSetup';
 export { default as AvatarIcon } from './ui/components/AvatarIcon';
+export { default as PopoverIcon } from './ui/components/PopoverIcon';
 
 // layouts
 export { default as PageLayout } from './ui/layouts/PageLayout';

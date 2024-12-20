@@ -5,7 +5,14 @@ import {
   useLoginMutation,
   useSignUpMutation,
 } from '@/features/loginForm';
-import { FormLayout, InputWithLabel, styles, type UserInfo } from '@/shared';
+import {
+  FormLayout,
+  InputWithLabel,
+  PopoverIcon,
+  styles,
+  type UserInfo,
+} from '@/shared';
+import { Flex, Text } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
 import { memo, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -46,6 +53,13 @@ const LoginForm = () => {
       buttonOptions={buttonOptions}
       onSubmit={handleSubmit(handleSignUp)}
     >
+      <Flex align="center" gap="2">
+        <Text color="gray" size="2">
+          테스트 아이디
+        </Text>
+        <PopoverIcon />
+      </Flex>
+
       <InputWithLabel
         register={register('email', EMAIL_VALIDATION)}
         label="이메일"
