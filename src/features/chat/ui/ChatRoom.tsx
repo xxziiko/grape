@@ -172,6 +172,7 @@ const ChatRoom = () => {
                 backgroundColor: 'rgba(220, 201, 235, 0.2)',
               }}
               type="text"
+              autoComplete="off"
             >
               <TextField.Slot />
               <TextField.Slot>

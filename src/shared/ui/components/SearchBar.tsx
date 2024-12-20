@@ -17,6 +17,7 @@ const SearchBar = () => {
           backgroundColor: 'rgba(220, 201, 235, 0.2)',
         }}
         type="text"
+        autoComplete="off"
       >
         <TextField.Slot>
           <MagnifyingGlassIcon width={20} height={20} />
