@@ -34,15 +34,20 @@ const ChatListItem = ({
           <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
             <div {...stylex.props(styles.flexColumn)}>
               <p {...stylex.props(styles.name)}>{friendName}</p>
-
-              <Title
-                text={latestMessage.body}
-                style={!isNew && styles.isRead}
-              />
+              {!latestMessage.body ? (
+                <Title text="첫 대화를 시작해보세요!" style={styles.isRead} />
+              ) : (
+                <Title
+                  text={latestMessage.body}
+                  style={!isNew && styles.isRead}
+                />
+              )}
             </div>
 
             <div>
-              <Title text={relativeTime} style={!isNew && styles.isRead} />
+              {!!latestMessage.created_at && (
+                <Title text={relativeTime} style={!isNew && styles.isRead} />
+              )}
             </div>
           </div>
         </Skeleton>
