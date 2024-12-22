@@ -1,11 +1,11 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { IconButton, TextField } from '@radix-ui/themes';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { DefaultButton, Modal } from '@/shared';
 
 const AddFriendIconButton = () => {
-  const [disabledButton, setDisabledButton] = useState(true);
+  // const [disabledButton, setDisabledButton] = useState(true);
 
   return (
     <Modal
@@ -25,9 +25,9 @@ const AddFriendIconButton = () => {
           <PlusIcon width={30} height={30} cursor={'pointer'} color="#9e9e9e" />
         </IconButton>
       }
-      actionButton={<DefaultButton command="등록" disabled={disabledButton} />}
+      actionButton={<DefaultButton command="등록" disabled />}
       cancelButton={<DefaultButton command="취소" styleType="error" />}
-      disabled={disabledButton}
+      disabled
     />
   );
 };
