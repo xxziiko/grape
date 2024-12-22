@@ -21,13 +21,18 @@ const AddFriendIconButton = () => {
         </>
       }
       triggerButton={
-        <IconButton variant="ghost" radius="full" color="gray" highContrast>
+        <IconButton
+          variant="ghost"
+          radius="full"
+          color="gray"
+          highContrast
+          disabled
+        >
           <PlusIcon width={30} height={30} cursor={'pointer'} color="#9e9e9e" />
         </IconButton>
       }
       actionButton={<DefaultButton command="등록" disabled />}
       cancelButton={<DefaultButton command="취소" styleType="error" />}
-      disabled
     />
   );
 };
