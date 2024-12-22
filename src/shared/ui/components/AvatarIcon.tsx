@@ -1,5 +1,6 @@
 import { Avatar } from '@radix-ui/themes';
 import { PersonIcon } from '@radix-ui/react-icons';
+import { memo } from 'react';
 
 const AvatarIcon = ({ width, height }: { width: number; height: number }) => {
   return (
@@ -12,4 +13,4 @@ const AvatarIcon = ({ width, height }: { width: number; height: number }) => {
   );
 };
 
-export default AvatarIcon;
+export default memo(AvatarIcon);

@@ -3,6 +3,7 @@ export { default as ChatList } from './ui/ChatList';
 export { default as ChatListItem } from './ui/ChatListItem';
 export { default as FriendListItem } from './ui/FriendListItem';
 export { default as NoData } from './ui/NoData';
+export { default as AddFriendIconButton } from './ui/AddFriendIconButton';
 
 // hooks
 export { default as useRealTimeMessages } from './hooks/useRealTimeMessages';

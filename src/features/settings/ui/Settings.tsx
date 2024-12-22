@@ -3,11 +3,11 @@ import * as stylex from '@stylexjs/stylex';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { signOutUser } from '@/entities/auth';
 
-const MENU = ['비밀번호 변경하기', '닉네임 변경하기', '회원 탈퇴'] as const;
+const MENU = ['비밀번호 변경하기', '닉네임 변경하기'] as const;
 const ROUTES = [
   '/settings/password-settings',
   '/settings/profile-setup',
-  '/settings/delete-account',
+  // '/settings/delete-account',
 ] as const;
 
 const Settings = () => {

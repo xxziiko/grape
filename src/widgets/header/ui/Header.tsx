@@ -1,8 +1,8 @@
-import { ChevronLeftIcon, PlusIcon } from '@radix-ui/react-icons';
+import { memo } from 'react';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { useRouter } from '@tanstack/react-router';
-
-import { memo } from 'react';
+import { AddFriendIconButton } from '@/features/chat';
 
 type HeaderProps = {
   isBackIconVisible?: boolean;
@@ -31,9 +31,7 @@ const Header = (props: HeaderProps) => {
           )}
         </div>
 
-        {isPlusIconVisible && (
-          <PlusIcon width={30} height={30} cursor={'pointer'} color="#9e9e9e" />
-        )}
+        {isPlusIconVisible && <AddFriendIconButton />}
       </div>
 
       {title && <div {...stylex.props(styles.text)}>{title}</div>}
