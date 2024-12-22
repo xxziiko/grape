@@ -1,13 +1,21 @@
 import { userIdAtom } from '@/entities/auth';
 import { ChatListItem, NoData, useChatsQuery } from '@/features/chat';
 import { useAtom } from 'jotai';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { PersonWithCheckIcon, styles } from '@/shared';
+import useRealTimeChatList from '../hooks/useRealTimeChatList';
 
 const ChatList = () => {
   const [userId] = useAtom(userIdAtom);
-  const { data, isLoading } = useChatsQuery(userId);
+  const { data, isLoading, refetch } = useChatsQuery(userId);
+  const [newChat, setNewChat] = useState();
+
+  useRealTimeChatList((payload) => setNewChat(payload));
+
+  useEffect(() => {
+    if (newChat) refetch();
+  }, [newChat]);
 
   // TODO: noSearchData UI
   return (
