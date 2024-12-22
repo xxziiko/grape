@@ -16,10 +16,12 @@ const ChatListItem = ({
   isLoading: boolean;
 }) => {
   const { friendName, isNew, latestMessage, chatId } = data;
-  const relativeTime = formatDistanceToNow(new Date(latestMessage.created_at), {
-    addSuffix: true,
-    locale: ko,
-  });
+  const relativeTime = !latestMessage?.created_at
+    ? ''
+    : formatDistanceToNow(new Date(latestMessage.created_at), {
+        addSuffix: true,
+        locale: ko,
+      });
 
   return (
     <Link
@@ -39,7 +41,7 @@ const ChatListItem = ({
               ) : (
                 <Title
                   text={latestMessage.body}
-                  style={!isNew && styles.isRead}
+                  style={!isNew ? styles.isRead : styles.newMessage}
                 />
               )}
             </div>
@@ -88,5 +90,9 @@ const styles = stylex.create({
 
   isRead: {
     color: '#A3A3A3',
+  },
+  newMessage: {
+    color: '000000',
+    fontWeight: 500,
   },
 });
