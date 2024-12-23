@@ -13,7 +13,7 @@
 <br/>
 
 ### ERD
-<img width="1123" alt="diagram" src="https://github.com/user-attachments/assets/1a065468-4449-4975-8d14-8f9486032c0a" />
+<img width="1049" alt="스크린샷 2024-12-23 오후 11 36 57" src="https://github.com/user-attachments/assets/5e6fa337-3129-4cd3-bfff-1d7188d0d479" />
 
 
 ## UI Design
