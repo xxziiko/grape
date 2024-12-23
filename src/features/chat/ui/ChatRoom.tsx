@@ -5,7 +5,7 @@ import {
   useMessages,
 } from '@/features/chat';
 import { ChevronLeftIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
-import { TextField } from '@radix-ui/themes';
+import { IconButton, TextField } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
@@ -176,10 +176,14 @@ const ChatRoom = () => {
             >
               <TextField.Slot />
               <TextField.Slot>
-                <PaperPlaneIcon
+                <IconButton
                   type="submit"
-                  {...stylex.props(styles.button)}
-                />
+                  variant="ghost"
+                  radius="full"
+                  color="gray"
+                >
+                  <PaperPlaneIcon {...stylex.props(styles.button)} />
+                </IconButton>
               </TextField.Slot>
             </TextField.Root>
           )}
