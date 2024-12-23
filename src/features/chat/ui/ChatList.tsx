@@ -1,10 +1,14 @@
-import { userIdAtom } from '@/entities/auth';
-import { ChatListItem, NoData, useChatsQuery } from '@/features/chat';
-import { useAtom } from 'jotai';
 import { memo, useEffect, useState } from 'react';
 import * as stylex from '@stylexjs/stylex';
+import { useAtom } from 'jotai';
+import { userIdAtom } from '@/entities/auth';
+import {
+  ChatListItem,
+  NoData,
+  useChatsQuery,
+  useRealTimeChatList,
+} from '@/features/chat';
 import { PersonWithCheckIcon, styles } from '@/shared';
-import useRealTimeChatList from '../hooks/useRealTimeChatList';
 
 const ChatList = () => {
   const [userId] = useAtom(userIdAtom);

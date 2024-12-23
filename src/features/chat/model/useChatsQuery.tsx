@@ -10,13 +10,13 @@ const useChatsQuery = (userId: string | undefined) => {
     select: (data) =>
       data?.map(
         (chat): ChatItem => ({
-          chatId: chat.chatid,
+          chatId: chat.chat_id,
           friendId: chat.friend_id,
           friendName: chat.friend_name,
-          isNew: chat.isNew,
+          isNew: chat.is_new,
           latestMessage: {
-            body: chat.latestmessage_body,
-            created_at: chat.latest_message_created_at,
+            body: chat.latest_message_body,
+            created_at: chat.latest_message_created_time,
           },
         }),
       ),
