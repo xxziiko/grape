@@ -1,16 +1,19 @@
+import { memo, useCallback } from 'react';
 import { AvatarIcon, Title } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { Link } from '@tanstack/react-router';
-
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { memo } from 'react';
-import type { ChatItem } from '@/features/chat';
+import {
+  useChatInfoMutation,
+  useMessages,
+  type ChatItem,
+} from '@/features/chat';
 import { Skeleton } from '@radix-ui/themes';
 
 const ChatListItem = ({
   data,
-  isLoading = true,
+  isLoading,
 }: {
   data: ChatItem;
   isLoading: boolean;
@@ -23,11 +26,19 @@ const ChatListItem = ({
         locale: ko,
       });
 
+  const { mutate } = useChatInfoMutation();
+  const { refetch } = useMessages(chatId);
+  const handleChatClick = useCallback(() => {
+    if (isNew) mutate({ chatId });
+    refetch();
+  }, [mutate]);
+
   return (
     <Link
       to="/chat/$chatId"
       params={(prev) => ({ ...prev, chatId })}
       search={{ friendName: friendName }}
+      onClick={handleChatClick}
     >
       <li {...stylex.props(styles.flexCenter, styles.box)}>
         <AvatarIcon width={35} height={35} />
@@ -93,6 +104,6 @@ const styles = stylex.create({
   },
   newMessage: {
     color: '000000',
-    fontWeight: 500,
+    fontWeight: 600,
   },
 });

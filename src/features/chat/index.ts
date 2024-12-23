@@ -9,12 +9,14 @@ export { default as AddFriendIconButton } from './ui/AddFriendIconButton';
 export { default as useRealTimeMessages } from './hooks/useRealTimeMessages';
 export { default as useMessages } from './hooks/useMessages';
 export { default as useIntersectionObserver } from './hooks/useIntersectionObserver';
+export { default as useRealTimeChatList } from './hooks/useRealTimeChatList';
 
 // model
 export { default as useChatsQuery } from './model/useChatsQuery';
 export { default as useFriendsQuery } from './model/useFriendsQuery';
 export { default as useMessagesQuery } from './model/useMessageQuery';
 export { default as useMessageMutation } from './model/useMessageMutation';
+export { default as useChatInfoMutation } from './model/useChatInfoMutation';
 
 // apis
 export * from './apis';

@@ -1,11 +1,12 @@
 import { userIdAtom } from '@/entities/auth';
 import {
+  useChatInfoMutation,
   useIntersectionObserver,
   useMessageMutation,
   useMessages,
 } from '@/features/chat';
 import { ChevronLeftIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
-import { TextField } from '@radix-ui/themes';
+import { IconButton, TextField } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
 import { useLocation, useParams, useRouter } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
@@ -36,7 +37,8 @@ const ChatRoom = () => {
 
   const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useMessages(chatId);
-  const { mutate } = useMessageMutation({ chatId });
+  const { mutate: mutateMessage } = useMessageMutation({ chatId });
+  const { mutate: mutateIsNew } = useChatInfoMutation();
 
   const observe = useIntersectionObserver(
     () => {
@@ -62,6 +64,11 @@ const ChatRoom = () => {
     [queryParams],
   );
 
+  const handleIconButton = useCallback(() => {
+    router.history.back();
+    mutateIsNew({ chatId });
+  }, [router.history, mutateIsNew]);
+
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
     const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
@@ -72,14 +79,14 @@ const ChatRoom = () => {
     async (data: SendMessage) => {
       if (!userId || !data.newMessage.trim()) return;
 
-      mutate({
+      mutateMessage({
         chat_id: chatId,
         user_id: userId,
         body: data.newMessage,
       });
       reset();
     },
-    [chatId, userId, mutate, reset],
+    [chatId, userId, mutateMessage, reset],
   );
 
   useEffect(() => {
@@ -116,7 +123,7 @@ const ChatRoom = () => {
           width={30}
           height={30}
           cursor={'pointer'}
-          onClick={() => router.history.back()}
+          onClick={handleIconButton}
         />
         <div {...stylex.props(styles.center, styles.flex)}>
           <h3>{friendName}</h3>
@@ -176,10 +183,14 @@ const ChatRoom = () => {
             >
               <TextField.Slot />
               <TextField.Slot>
-                <PaperPlaneIcon
+                <IconButton
                   type="submit"
-                  {...stylex.props(styles.button)}
-                />
+                  variant="ghost"
+                  radius="full"
+                  color="gray"
+                >
+                  <PaperPlaneIcon {...stylex.props(styles.button)} />
+                </IconButton>
               </TextField.Slot>
             </TextField.Root>
           )}
