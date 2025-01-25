@@ -19,6 +19,9 @@
 ## UI Design
 ![UI](https://github.com/user-attachments/assets/fabbc9e4-cca7-4c17-a94f-bbd064a9a06d)
 
+### UI Components
+![Image](https://github.com/user-attachments/assets/79a02142-15f0-4418-b110-3a64d3165078)
+
 <br/>
 
 ### 주요 기능
