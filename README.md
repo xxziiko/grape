@@ -1,38 +1,6 @@
 # 간편 채팅 서비스, grape
 
-### 🔗 [grape](https://grape-chat.vercel.app/)
-
-<br/>
-
-### 기술 스택
-
-- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
-- **Database**: Supabase
-- **Deployment**: Vercel
-
-<br/>
-
-### ERD
-<img width="1049" alt="스크린샷 2024-12-23 오후 11 36 57" src="https://github.com/user-attachments/assets/5e6fa337-3129-4cd3-bfff-1d7188d0d479" />
-
-
-## UI Design
-![UI](https://github.com/user-attachments/assets/fabbc9e4-cca7-4c17-a94f-bbd064a9a06d)
-
-### UI Components
-![Image](https://github.com/user-attachments/assets/79a02142-15f0-4418-b110-3a64d3165078)
-
-<br/>
-
-### 주요 기능
-
-- 회원가입/로그인
-- 프로필 설정
-- 1:1 채팅
-- 친구 추가
-- 비밀번호 변경
-- 로그아웃
-
+## 🔗 [grape](https://grape-chat.vercel.app/)
 
 <br/>
 
@@ -67,6 +35,49 @@
 
 
 <br/>
+
+
+### 기술 스택
+
+- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
+- **Database**: Supabase
+- **Deployment**: Vercel
+
+
+<br/>
+
+### 주요 기능
+
+- 회원가입/로그인
+- 프로필 설정
+- 1:1 채팅
+- 친구 추가
+- 비밀번호 변경
+- 로그아웃
+
+
+
+
+<br/>
+
+### ERD
+<img width="1049" alt="스크린샷 2024-12-23 오후 11 36 57" src="https://github.com/user-attachments/assets/5e6fa337-3129-4cd3-bfff-1d7188d0d479" />
+
+
+## UI 
+
+### Components
+![Image](https://github.com/user-attachments/assets/79a02142-15f0-4418-b110-3a64d3165078)
+
+<br/>
+
+
+### Design
+![UI](https://github.com/user-attachments/assets/fabbc9e4-cca7-4c17-a94f-bbd064a9a06d)
+
+
+<br/>
+
 
 
 ### 설치 및 실행 방법
