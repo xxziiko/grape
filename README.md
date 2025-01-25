@@ -2,6 +2,13 @@
 
 ## 🔗 [grape](https://grape-chat.vercel.app/)
 
+
+### 기술 스택
+
+- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
+- **Database**: Supabase
+- **Deployment**: Vercel
+
 <br/>
 
 ### 프로젝트 목적
@@ -34,14 +41,6 @@
 
 
 
-<br/>
-
-
-### 기술 스택
-
-- **Client**: React, TypeScript, StyleX, Tanstack-query, Jotai
-- **Database**: Supabase
-- **Deployment**: Vercel
 
 
 <br/>
