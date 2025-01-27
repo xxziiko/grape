@@ -17,6 +17,7 @@ export { default as AuthLayout } from './ui/layouts/AuthLayout';
 
 // types
 export * from './types/client';
+export * from './types/utils';
 
 // assets
 export { default as KakaoIcon } from './assets/KakaoIcon';
