@@ -55,7 +55,7 @@ export const getSession = async () => {
   return handleError({ data: data.session, error });
 };
 
-export const refreshToken = async () => {
+export const refreshToken = async (): Promise<Session> => {
   const { data, error } = await supabase.auth.refreshSession();
   return handleError({ data: data.session, error });
 };
