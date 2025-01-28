@@ -1,13 +1,13 @@
-import { fetchUserFriends, type Friend } from '@/features/chat';
-import { handleError } from '@/shared';
+import { fetchUserFriends, RawFriend, type Friend } from '@/features/chat';
+import { handleError, NonNullable } from '@/shared';
 import { useQuery } from '@tanstack/react-query';
 
-const useFriendsQuery = (userId: string | undefined) => {
-  const { error, ...rest } = useQuery({
+const useFriendsQuery = (userId: NonNullable<string>) => {
+  const { error, ...rest } = useQuery<RawFriend[], unknown, Friend[]>({
     queryKey: ['friends', userId],
     queryFn: () => fetchUserFriends(userId),
     select: (data) =>
-      data?.map((user): Friend => {
+      data.map((user) => {
         return {
           id: user.friend_id,
           friendName: user.friend_name,

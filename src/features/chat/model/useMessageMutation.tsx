@@ -1,8 +1,8 @@
-import { handleError, queryClient } from '@/shared';
+import { handleError, NonNullable, queryClient } from '@/shared';
 import { useMutation } from '@tanstack/react-query';
 import { sendChatMessage } from '@/features/chat';
 
-const useMessageMutation = ({ chatId }: { chatId: string | undefined }) => {
+const useMessageMutation = (chatId: NonNullable<string>) => {
   const { mutate, isError } = useMutation({
     mutationFn: sendChatMessage,
     onSuccess: () => {
