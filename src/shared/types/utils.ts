@@ -5,8 +5,8 @@ export type PickOne<T> = {
 
 export type NonNullable<T> = T extends null | undefined ? never : T;
 
-export type HandleErrorParams = PickOne<{
-  data: null;
+export type HandleErrorParams<T> = PickOne<{
+  data: T;
   error: Error;
 }>;
 

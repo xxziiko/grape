@@ -5,7 +5,7 @@ export const handleError = <T>({
   data: T;
   error: unknown;
 }) => {
-  if (error) throw error;
+  if (!data || error) throw error;
 
   return data;
 };
