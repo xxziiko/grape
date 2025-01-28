@@ -1,9 +1,9 @@
-import { supabase } from '@/shared';
+import { NonNullable, supabase } from '@/shared';
 import { useEffect, useCallback } from 'react';
 import type { Messages } from '@/features/chat';
 
 const useRealTimeMessages = (
-  chatId: string | undefined,
+  chatId: NonNullable<string>,
   onNewMessage: (message: Messages) => void,
 ) => {
   const handleNewMessage = useCallback(

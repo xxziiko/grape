@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import { atomWithSuspenseQuery } from 'jotai-tanstack-query';
 import { fetchUserName } from './apis';
-import { Session } from '@supabase/supabase-js';
 import { atomWithDefault } from 'jotai/utils';
+import { Session } from '@supabase/supabase-js';
 
 export const userNameAtom = atomWithSuspenseQuery((get) => ({
   queryKey: ['userName', get(userIdAtom)],
@@ -16,16 +16,14 @@ export const userNameAtom = atomWithSuspenseQuery((get) => ({
   enabled: !!get(userIdAtom),
 }));
 
-export const userNameQueryAtom = atom<string | null>(null);
+export const userNameQueryAtom = atom<string>('');
 
-export const sessionAtom = atomWithDefault<Session | null>(() => {
+export const sessionAtom = atomWithDefault<Session>(() => {
   const session = localStorage.getItem(
     `sb-${import.meta.env.VITE_SUPABASE_ID}-auth-token`,
   );
 
-  return JSON.parse(session!);
+  return session ? JSON.parse(session) : null;
 });
 
-export const userIdAtom = atom<string | undefined>(
-  (get) => get(sessionAtom)?.user.id,
-);
+export const userIdAtom = atom<string>((get) => get(sessionAtom)?.user.id);

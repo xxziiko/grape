@@ -1,6 +1,10 @@
-import { handleError, supabase, UserInfo } from '@/shared';
+import { handleError, NonNullable, supabase, UserInfo } from '@/shared';
+import { AuthResponse, Session } from '@supabase/supabase-js';
 
-export const signUpUser = async ({ email, password }: UserInfo) =>
+export const signUpUser = async ({
+  email,
+  password,
+}: UserInfo): Promise<NonNullable<AuthResponse['data']>> =>
   await supabase.auth
     .signUp({
       email,
@@ -8,7 +12,10 @@ export const signUpUser = async ({ email, password }: UserInfo) =>
     })
     .then(handleError);
 
-export const signInUser = async ({ email, password }: UserInfo) => {
+export const signInUser = async ({
+  email,
+  password,
+}: UserInfo): Promise<NonNullable<AuthResponse['data']>> => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -20,10 +27,10 @@ export const signInUser = async ({ email, password }: UserInfo) => {
 export const signOutUser = async () => await supabase.auth.signOut();
 
 export const fetchUserName = async (
-  userId: string | undefined,
+  userId: NonNullable<string>,
 ): Promise<{
   user_name: string;
-} | null> =>
+}> =>
   await supabase
     .from('users')
     .select('user_name')
@@ -32,7 +39,7 @@ export const fetchUserName = async (
     .then(handleError);
 
 export const checkEmailExists = async (
-  email: string | undefined,
+  email: NonNullable<string>,
 ): Promise<boolean | null> => {
   const selectEamil = await supabase
     .from('users')
@@ -48,7 +55,7 @@ export const getSession = async () => {
   return handleError({ data: data.session, error });
 };
 
-export const refreshToken = async () => {
+export const refreshToken = async (): Promise<Session> => {
   const { data, error } = await supabase.auth.refreshSession();
   return handleError({ data: data.session, error });
 };

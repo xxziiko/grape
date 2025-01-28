@@ -1,9 +1,9 @@
 import { type Messages, useMessagesQuery } from '@/features/chat';
 import useRealTimeMessages from '@/features/chat/hooks/useRealTimeMessages';
 import { useEffect, useState } from 'react';
-import { debounce } from 'es-toolkit';
+import { NonNullable } from '@/shared';
 
-const useMessages = (chatId: string | undefined) => {
+const useMessages = (chatId: NonNullable<string>) => {
   const [messages, setMessages] = useState<Messages[]>([]);
   const [realtimeMessages, setRealtimeMessages] = useState<Messages[]>([]);
 
@@ -16,9 +16,9 @@ const useMessages = (chatId: string | undefined) => {
     refetch,
   } = useMessagesQuery(chatId);
 
-  const updateMessages = debounce((newMessages: Messages[]) => {
+  const updateMessages = (newMessages: Messages[]) => {
     setRealtimeMessages((prev) => [...prev, ...newMessages]);
-  }, 300);
+  };
 
   useRealTimeMessages(chatId, (newMessage) => {
     updateMessages([newMessage]);

@@ -4,12 +4,12 @@ import * as stylex from '@stylexjs/stylex';
 import { Link } from '@tanstack/react-router';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { Skeleton } from '@radix-ui/themes';
 import {
   useChatInfoMutation,
   useMessages,
   type ChatItem,
 } from '@/features/chat';
-import { Skeleton } from '@radix-ui/themes';
 
 const ChatListItem = ({
   data,
@@ -19,6 +19,9 @@ const ChatListItem = ({
   isLoading: boolean;
 }) => {
   const { friendName, isNew, latestMessage, chatId } = data;
+  const { mutate } = useChatInfoMutation();
+  const { refetch } = useMessages(chatId);
+
   const relativeTime = !latestMessage?.created_at
     ? ''
     : formatDistanceToNow(new Date(latestMessage.created_at), {
@@ -26,10 +29,8 @@ const ChatListItem = ({
         locale: ko,
       });
 
-  const { mutate } = useChatInfoMutation();
-  const { refetch } = useMessages(chatId);
   const handleChatClick = useCallback(() => {
-    if (isNew) mutate({ chatId });
+    if (isNew) mutate(chatId);
     refetch();
   }, [mutate]);
 
