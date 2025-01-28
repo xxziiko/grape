@@ -20,7 +20,7 @@ type SendMessage = {
 const ChatRoom = () => {
   const router = useRouter();
   const location = useLocation();
-  const { chatId } = useParams({ strict: false });
+  const chatId = useParams({ strict: false }).chatId as string;
   const prevScrollHeight = useRef(0);
   const chatRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLLIElement | null>(null);
@@ -37,7 +37,7 @@ const ChatRoom = () => {
 
   const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useMessages(chatId);
-  const { mutate: mutateMessage } = useMessageMutation({ chatId });
+  const { mutate: mutateMessage } = useMessageMutation(chatId);
   const { mutate: mutateIsNew } = useChatInfoMutation();
 
   const observe = useIntersectionObserver(
@@ -66,7 +66,7 @@ const ChatRoom = () => {
 
   const handleIconButton = useCallback(() => {
     router.history.back();
-    mutateIsNew({ chatId });
+    mutateIsNew(chatId!);
   }, [router.history, mutateIsNew]);
 
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
@@ -80,7 +80,7 @@ const ChatRoom = () => {
       if (!userId || !data.newMessage.trim()) return;
 
       mutateMessage({
-        chat_id: chatId,
+        chat_id: chatId!,
         user_id: userId,
         body: data.newMessage,
       });
