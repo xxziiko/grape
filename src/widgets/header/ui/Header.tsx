@@ -8,7 +8,6 @@ type HeaderProps = {
   isBackIconVisible?: boolean;
   isPlusIconVisible?: boolean;
   title?: React.ReactNode;
-  path?: string;
 };
 
 const Header = (props: HeaderProps) => {
@@ -20,16 +19,14 @@ const Header = (props: HeaderProps) => {
   return (
     <div {...stylex.props(styles.box)}>
       <div {...stylex.props(styles.icons)}>
-        <div>
-          {isBackIconVisible && (
-            <ChevronLeftIcon
-              width={30}
-              height={30}
-              cursor={'pointer'}
-              onClick={onBack}
-            />
-          )}
-        </div>
+        {isBackIconVisible && (
+          <ChevronLeftIcon
+            width={30}
+            height={30}
+            cursor={'pointer'}
+            onClick={onBack}
+          />
+        )}
 
         {isPlusIconVisible && <AddFriendIconButton />}
       </div>
