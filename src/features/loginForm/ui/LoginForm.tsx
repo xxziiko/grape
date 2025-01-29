@@ -9,7 +9,7 @@ import {
   FormLayout,
   InputWithLabel,
   PopoverIcon,
-  styles,
+  textStyles,
   type UserInfo,
 } from '@/shared';
 import { Flex, Text } from '@radix-ui/themes';
@@ -66,7 +66,7 @@ const LoginForm = () => {
         placeholder="example@gamil.com"
         type="text"
       />
-      <p {...stylex.props(styles.errors)}>{errors.email?.message}</p>
+      <p {...stylex.props(textStyles.errors)}>{errors.email?.message}</p>
 
       <InputWithLabel
         register={register('password', PASSWORD_VALIDATION)}
@@ -74,7 +74,7 @@ const LoginForm = () => {
         placeholder="영문포함 8~16자 이내"
         type="password"
       />
-      <p {...stylex.props(styles.errors)}>{errors.password?.message}</p>
+      <p {...stylex.props(textStyles.errors)}>{errors.password?.message}</p>
     </FormLayout>
   );
 };

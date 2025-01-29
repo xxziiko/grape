@@ -1,5 +1,5 @@
 import { PASSWORD_VALIDATION } from '@/features/loginForm';
-import { FormLayout, InputWithLabel, styles } from '@/shared';
+import { FormLayout, InputWithLabel, textStyles } from '@/shared';
 import { memo, useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as stylex from '@stylexjs/stylex';
@@ -52,7 +52,9 @@ const PasswordSettingsForm = () => {
         type="password"
         placeholder="영문포함 8~16자 이내"
       />
-      <p {...stylex.props(styles.errors)}>{errors.currentPassword?.message}</p>
+      <p {...stylex.props(textStyles.errors)}>
+        {errors.currentPassword?.message}
+      </p>
 
       <InputWithLabel
         register={register('newPassword', NEW_PASSWORD_VALIDATION)}
@@ -60,7 +62,7 @@ const PasswordSettingsForm = () => {
         placeholder="영문포함 8~16자 이내"
         type="password"
       />
-      <p {...stylex.props(styles.errors)}>{errors.newPassword?.message}</p>
+      <p {...stylex.props(textStyles.errors)}>{errors.newPassword?.message}</p>
     </FormLayout>
   );
 };

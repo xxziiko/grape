@@ -1,3 +1,4 @@
+import { flexStyles } from '@/shared/utils/styles';
 import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 
@@ -20,6 +21,7 @@ const DefaultButton = ({
   return (
     <button
       {...stylex.props(
+        flexStyles.center,
         styles.base,
         disabled ? styles.disabled : styles.base,
         styleType && styles[styleType],
@@ -36,9 +38,6 @@ export default memo(DefaultButton);
 
 const styles = stylex.create({
   base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     gap: '10px',
     height: '50px',
     width: '100%',

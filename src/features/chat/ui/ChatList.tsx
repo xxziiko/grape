@@ -8,7 +8,7 @@ import {
   useChatsQuery,
   useRealTimeChatList,
 } from '@/features/chat';
-import { PersonWithCheckIcon, styles } from '@/shared';
+import { PersonWithCheckIcon, commonStyles } from '@/shared';
 
 const ChatList = () => {
   const [userId] = useAtom(userIdAtom);
@@ -35,7 +35,7 @@ const ChatList = () => {
               }
             />
           )}
-          <ul {...stylex.props(styles.list)}>
+          <ul {...stylex.props(commonStyles.listContainer)}>
             {data
               ?.sort((a, b) => Number(b.isNew) - Number(a.isNew))
               .map((item) => (

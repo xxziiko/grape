@@ -1,3 +1,4 @@
+import { flexStyles } from '@/shared/utils/styles';
 import * as stylex from '@stylexjs/stylex';
 import type {
   CompiledStyles,
@@ -12,15 +13,17 @@ const PageLayout = ({
   children: React.ReactNode;
   style?: StyleXArray<boolean | CompiledStyles | null | undefined>;
 }) => {
-  return <div {...stylex.props(styles.box, style)}>{children}</div>;
+  return (
+    <div {...stylex.props(flexStyles.column, styles.box, style)}>
+      {children}
+    </div>
+  );
 };
 
 export default memo(PageLayout);
 
 const styles = stylex.create({
   box: {
-    display: 'flex',
-    flexDirection: 'column',
     padding: '0 24px',
     height: '100%',
   },

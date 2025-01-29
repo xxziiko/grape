@@ -21,6 +21,11 @@ export const flexStyles = stylex.create({
     display: 'flex',
     justifyContent: 'space-around',
   },
+
+  spaceBetween: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 });
 
 export const commonStyles = stylex.create({
