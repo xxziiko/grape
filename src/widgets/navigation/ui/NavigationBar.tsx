@@ -1,5 +1,6 @@
+import { flexStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 type NavItemProps = {
   children: React.ReactNode;
@@ -16,12 +17,12 @@ const NAVLIST = ['채팅', '친구 목록', '설정'] as const;
 
 const NavigationBar = ({ onClick, selectedNavItem }: NavigationBarProps) => {
   return (
-    <nav {...stylex.props(styles.box)}>
+    <nav {...stylex.props(flexStyles.spaceAround, styles.box)}>
       {NAVLIST.map((title) => (
         <NavItem
           key={title}
           isClicked={title === selectedNavItem}
-          onClick={() => onClick(title)}
+          onClick={useCallback(() => onClick(title), [onClick, title])}
         >
           {title}
         </NavItem>
@@ -30,12 +31,13 @@ const NavigationBar = ({ onClick, selectedNavItem }: NavigationBarProps) => {
   );
 };
 
-const NavItem = ({ children, isClicked, onClick }: NavItemProps) => {
+const NavItem = memo(({ children, isClicked, onClick }: NavItemProps) => {
   return (
     <button
       {...stylex.props(
         styles.navItemBase,
-        styles.flexCenter,
+        flexStyles.center,
+        styles.fullWidth,
         isClicked && styles.isClicked,
       )}
       onClick={onClick}
@@ -43,14 +45,12 @@ const NavItem = ({ children, isClicked, onClick }: NavItemProps) => {
       {children}
     </button>
   );
-};
+});
 
 export default memo(NavigationBar);
 
 const styles = stylex.create({
   box: {
-    display: 'flex',
-    justifyContent: 'space-around',
     minHeight: '50px',
     gap: '50px',
     borderBottomWidth: '1px',
@@ -58,10 +58,7 @@ const styles = stylex.create({
     borderBottomColor: '#dedede',
   },
 
-  flexCenter: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  fullWidth: {
     width: '100%',
   },
 
