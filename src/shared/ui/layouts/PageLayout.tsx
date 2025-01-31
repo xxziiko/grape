@@ -1,4 +1,4 @@
-import { flexStyles } from '@/shared/utils/styles';
+import { flexStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import type {
   CompiledStyles,

@@ -17,15 +17,17 @@ export { default as AuthLayout } from './ui/layouts/AuthLayout';
 
 // types
 export * from './types/client';
+export * from './types/utils';
 
 // assets
 export { default as KakaoIcon } from './assets/KakaoIcon';
 export { default as PersonWithCheckIcon } from './assets/PersonWithCheckIcon';
 
 // utils
-export * from './utils/functions';
-export * from './utils/types';
-export * from './utils/styles';
+export * from './utils';
+
+// styles
+export * from './styles/utils';
 
 // apis
 export * from './apis';
