@@ -33,7 +33,7 @@ const HomePage = () => {
       <ButtonBoxLayout>
         <DefaultButton
           command="카카오 로그인"
-          styleType="kakao"
+          variant="kakao"
           icon={<KakaoIcon />}
           onClick={signInWithKakao}
         />

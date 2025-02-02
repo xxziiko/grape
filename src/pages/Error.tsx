@@ -25,7 +25,7 @@ const Error = ({ onClick }: { onClick?: () => void }) => {
       <ButtonBoxLayout>
         <DefaultButton
           command="다시 시도하기"
-          styleType="error"
+          variant="cancel"
           onClick={onClick}
         />
 
