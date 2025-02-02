@@ -9,7 +9,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "gen-types": "supabase gen types typescript --project-id migdvgbufczfbwarvspi > src/shared/types/database.types.ts",
-    "vercel-build": "npm cache clean --force && npm install && npm run build"
+    "vercel-build": "npm cache clean --force && npm install && npm run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
@@ -28,6 +30,14 @@
     "react-hook-form": "^7.52.2"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.3",
+    "@storybook/addon-interactions": "^8.5.3",
+    "@storybook/addon-onboarding": "^8.5.3",
+    "@storybook/blocks": "^8.5.3",
+    "@storybook/react": "^8.5.3",
+    "@storybook/react-vite": "^8.5.3",
+    "@storybook/test": "^8.5.3",
     "@stylexjs/eslint-plugin": "^0.7.5",
     "@tanstack/react-query-devtools": "^5.51.14",
     "@tanstack/router-cli": "^1.45.13",
@@ -43,10 +53,17 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "eslint-plugin-storybook": "^0.11.2",
     "prettier": "^3.3.3",
+    "storybook": "^8.5.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4",
     "vite-plugin-stylex": "^0.10.1",
     "vite-tsconfig-paths": "^4.3.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }

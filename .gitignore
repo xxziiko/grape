@@ -34,3 +34,5 @@ dist-ssr
 /output
 .env.*
 .vercel
+
+*storybook.log
