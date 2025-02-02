@@ -1,7 +1,9 @@
 # 간편 채팅 서비스, grape
 
 ## 🔗 [grape](https://grape-chat.vercel.app/)
+👉 [🔗 Storybook](https://your-storybook-url.com)
 
+<br />
 
 ### 기술 스택
 
@@ -68,8 +70,8 @@
 ### Components
 ![Image](https://github.com/user-attachments/assets/79a02142-15f0-4418-b110-3a64d3165078)
 
-<br/>
 
+<br/>
 
 ### Design
 ![UI](https://github.com/user-attachments/assets/fabbc9e4-cca7-4c17-a94f-bbd064a9a06d)
