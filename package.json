@@ -11,7 +11,8 @@
     "gen-types": "supabase gen types typescript --project-id migdvgbufczfbwarvspi > src/shared/types/database.types.ts",
     "vercel-build": "npm cache clean --force && npm install && npm run build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_6b26e7782275341"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
@@ -48,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "chromatic": "^11.25.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
