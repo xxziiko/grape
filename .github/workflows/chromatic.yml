@@ -8,6 +8,9 @@ jobs:
   test:
     # The operating system it will run on
     runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
     # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           #👇 Sets the version of Node.js to use
-          node-version: 16
+          node-version: 18
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
