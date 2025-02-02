@@ -1,3 +1,4 @@
+import { flexStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 
@@ -5,14 +6,15 @@ type ButtonProps = {
   command: string;
   onClick?: React.MouseEventHandler<HTMLElement>;
   type?: 'submit' | 'button' | 'reset';
-  styleType?: keyof typeof styles;
+  variant?: 'primary' | 'kakao' | 'cancel' | 'close';
   disabled?: boolean;
   icon?: React.ReactNode;
 };
 
 const DefaultButton = ({
   command,
-  styleType,
+  variant = 'primary',
+  type = 'button',
   disabled = false,
   icon,
   ...props
@@ -20,13 +22,14 @@ const DefaultButton = ({
   return (
     <button
       {...stylex.props(
-        styles.base,
-        disabled ? styles.disabled : styles.base,
-        styleType && styles[styleType],
+        flexStyles.center,
+        styles.primary,
+        styles[variant] ?? styles.primary,
+        disabled && styles.disabled,
       )}
       {...props}
     >
-      {icon}
+      {icon && icon}
       {command}
     </button>
   );
@@ -35,10 +38,7 @@ const DefaultButton = ({
 export default memo(DefaultButton);
 
 const styles = stylex.create({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  primary: {
     gap: '10px',
     height: '50px',
     width: '100%',
@@ -81,13 +81,13 @@ const styles = stylex.create({
     color: '#000000',
   },
 
-  cancel: {
+  close: {
     backgroundColor: 'rgba(163, 163, 163, 0.2)',
     borderStyle: 'none',
     color: '#4A4545',
   },
 
-  error: {
+  cancel: {
     backgroundColor: '#EE4A4A',
     borderStyle: 'none',
     color: '#ffffff',

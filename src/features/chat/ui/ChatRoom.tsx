@@ -5,6 +5,7 @@ import {
   useMessageMutation,
   useMessages,
 } from '@/features/chat';
+import { flexStyles } from '@/shared';
 import { ChevronLeftIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import { IconButton, TextField } from '@radix-ui/themes';
 import * as stylex from '@stylexjs/stylex';
@@ -118,20 +119,20 @@ const ChatRoom = () => {
 
   return (
     <div {...stylex.props(styles.box)}>
-      <div {...stylex.props(styles.flex, styles.bottomGrey)}>
+      <div {...stylex.props(flexStyles.alignCenter, styles.bottomGrey)}>
         <ChevronLeftIcon
           width={30}
           height={30}
           cursor={'pointer'}
           onClick={handleIconButton}
         />
-        <div {...stylex.props(styles.center, styles.flex)}>
+        <div {...stylex.props(styles.center, flexStyles.alignCenter)}>
           <h3>{friendName}</h3>
         </div>
       </div>
 
       <main {...stylex.props(styles.main)} onScroll={handleScroll}>
-        <ul {...stylex.props(styles.ul)}>
+        <ul {...stylex.props(flexStyles.column, styles.ul)}>
           {messages?.map((message, i) =>
             i === 10 ? (
               <li
@@ -207,11 +208,6 @@ const styles = stylex.create({
     overflow: 'hidden',
   },
 
-  flex: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
   bottomGrey: {
     padding: '24px',
     border: '1px solid #dedede',
@@ -224,8 +220,6 @@ const styles = stylex.create({
   },
 
   ul: {
-    display: 'flex',
-    flexDirection: 'column',
     gap: '10px',
   },
 

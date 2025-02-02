@@ -32,7 +32,7 @@ const AddFriendIconButton = () => {
         </IconButton>
       }
       actionButton={<DefaultButton command="등록" disabled />}
-      cancelButton={<DefaultButton command="취소" styleType="error" />}
+      cancelButton={<DefaultButton command="취소" variant="cancel" />}
     />
   );
 };

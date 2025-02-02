@@ -1,7 +1,7 @@
 import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 import type { Friend } from '@/features/chat';
-import { AvatarIcon } from '@/shared';
+import { AvatarIcon, flexStyles } from '@/shared';
 import { Skeleton } from '@radix-ui/themes';
 
 const FriendListItem = ({
@@ -14,11 +14,11 @@ const FriendListItem = ({
   const { friendName } = data;
 
   return (
-    <li {...stylex.props(styles.flexCenter, styles.box)}>
+    <li {...stylex.props(flexStyles.alignCenter, styles.box)}>
       <AvatarIcon width={35} height={35} />
 
       <Skeleton loading={isLoading}>
-        <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
+        <div {...stylex.props(flexStyles.alignCenter, styles.contentBox)}>
           <p {...stylex.props(styles.name)}>{friendName}</p>
         </div>
       </Skeleton>
@@ -29,11 +29,6 @@ const FriendListItem = ({
 export default memo(FriendListItem);
 
 const styles = stylex.create({
-  flexCenter: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
   box: {
     gap: '12px',
   },

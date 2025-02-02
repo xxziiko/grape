@@ -1,4 +1,4 @@
-import { PageLayout, styles } from '@/shared';
+import { PageLayout, commonStyles, textStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 
 type NoData = {
@@ -11,10 +11,10 @@ const NoData = (props: NoData) => {
   const { icon, title, description } = props;
   return (
     <PageLayout>
-      <main {...stylex.props(styles.main)}>
+      <main {...stylex.props(commonStyles.centerColumn)}>
         {icon}
         <h2>{title}</h2>
-        <p {...stylex.props(styles.text)}>{description}</p>
+        <p {...stylex.props(textStyles.base)}>{description}</p>
       </main>
     </PageLayout>
   );

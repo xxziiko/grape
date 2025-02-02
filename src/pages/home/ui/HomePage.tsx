@@ -3,6 +3,7 @@ import {
   Bubble,
   ButtonBoxLayout,
   DefaultButton,
+  flexStyles,
   KakaoIcon,
   PageLayout,
 } from '@/shared';
@@ -18,7 +19,7 @@ const HomePage = () => {
   return (
     <PageLayout style={styles.gradientBackground}>
       <Header />
-      <main {...stylex.props(styles.main)}>
+      <main {...stylex.props(flexStyles.column, styles.main)}>
         {GREETINGMESSAGES?.map((el) => <Bubble key={el.id} data={el} />)}
 
         <div>
@@ -32,7 +33,7 @@ const HomePage = () => {
       <ButtonBoxLayout>
         <DefaultButton
           command="카카오 로그인"
-          styleType="kakao"
+          variant="kakao"
           icon={<KakaoIcon />}
           onClick={signInWithKakao}
         />
@@ -55,8 +56,6 @@ const styles = stylex.create({
   },
 
   main: {
-    display: 'flex',
-    flexDirection: 'column',
     gap: '20px',
     height: '100%',
   },

@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import { AvatarIcon, Title } from '@/shared';
+import { AvatarIcon, flexStyles, Title } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { Link } from '@tanstack/react-router';
 import { formatDistanceToNow } from 'date-fns';
@@ -41,12 +41,12 @@ const ChatListItem = ({
       search={{ friendName: friendName }}
       onClick={handleChatClick}
     >
-      <li {...stylex.props(styles.flexCenter, styles.box)}>
+      <li {...stylex.props(flexStyles.alignCenter, styles.box)}>
         <AvatarIcon width={35} height={35} />
 
         <Skeleton loading={isLoading}>
-          <div {...stylex.props(styles.flexCenter, styles.contentBox)}>
-            <div {...stylex.props(styles.flexColumn)}>
+          <div {...stylex.props(flexStyles.alignCenter, styles.contentBox)}>
+            <div {...stylex.props(flexStyles.column, styles.fullWidthColumn)}>
               <p {...stylex.props(styles.name)}>{friendName}</p>
               {!latestMessage.body ? (
                 <Title text="첫 대화를 시작해보세요!" style={styles.isRead} />
@@ -73,14 +73,7 @@ const ChatListItem = ({
 export default memo(ChatListItem);
 
 const styles = stylex.create({
-  flexCenter: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  flexColumn: {
-    display: 'flex',
-    flexDirection: 'column',
+  fullWidthColumn: {
     gap: '10px',
     overflow: 'hidden',
     width: '100%',

@@ -26,8 +26,8 @@ export { default as PersonWithCheckIcon } from './assets/PersonWithCheckIcon';
 // utils
 export * from './utils';
 
+// styles
+export * from './styles/utils';
+
 // apis
 export * from './apis';
-
-// styles
-export * from './styles';

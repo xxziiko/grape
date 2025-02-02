@@ -1,6 +1,6 @@
 import { userIdAtom } from '@/entities/auth';
 import { FriendListItem, NoData, useFriendsQuery } from '@/features/chat';
-import { PersonWithCheckIcon, styles } from '@/shared';
+import { PersonWithCheckIcon, commonStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { useAtom } from 'jotai';
 import { memo } from 'react';
@@ -22,7 +22,7 @@ const FriendList = () => {
               }
             />
           )}
-          <ul {...stylex.props(styles.list)}>
+          <ul {...stylex.props(commonStyles.listContainer)}>
             {data
               ?.sort((a, b) => a.friendName.localeCompare(b.friendName))
               .map((item) => (

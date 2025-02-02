@@ -2,6 +2,7 @@ import { memo } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { signOutUser } from '@/entities/auth';
+import { flexStyles } from '@/shared';
 
 const MENU = ['비밀번호 변경하기', '닉네임 변경하기'] as const;
 const ROUTES = [
@@ -22,13 +23,19 @@ const Settings = () => {
       <ul>
         {MENU.map((list, index) => (
           <li key={list}>
-            <Link {...stylex.props(styles.list)} to={ROUTES[index]}>
+            <Link
+              {...stylex.props(flexStyles.alignCenter, styles.list)}
+              to={ROUTES[index]}
+            >
               <p {...stylex.props(styles.text)}>{list}</p>
             </Link>
           </li>
         ))}
 
-        <li {...stylex.props(styles.list)} onClick={handleSignOut}>
+        <li
+          {...stylex.props(flexStyles.alignCenter, styles.list)}
+          onClick={handleSignOut}
+        >
           <p {...stylex.props(styles.text)}>로그아웃</p>
         </li>
       </ul>
@@ -40,8 +47,6 @@ export default memo(Settings);
 
 const styles = stylex.create({
   list: {
-    display: 'flex',
-    alignItems: 'center',
     padding: '30px 0',
     width: '100%',
     borderBottom: '1px solid #dedede',

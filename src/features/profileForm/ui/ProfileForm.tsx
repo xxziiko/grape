@@ -1,4 +1,4 @@
-import { FormLayout, InputWithLabel } from '@/shared';
+import { FormLayout, InputWithLabel, textStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -52,15 +52,9 @@ const ProfileForm = () => {
           },
         })}
       />
-      <p {...stylex.props(styles.errors)}>{errors.userName?.message}</p>
+      <p {...stylex.props(textStyles.errors)}>{errors.userName?.message}</p>
     </FormLayout>
   );
 };
 
 export default memo(ProfileForm);
-
-const styles = stylex.create({
-  errors: {
-    color: '#EE4A4A',
-  },
-});

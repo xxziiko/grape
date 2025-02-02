@@ -3,12 +3,12 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import * as stylex from '@stylexjs/stylex';
 import { useRouter } from '@tanstack/react-router';
 import { AddFriendIconButton } from '@/features/chat';
+import { flexStyles } from '@/shared';
 
 type HeaderProps = {
   isBackIconVisible?: boolean;
   isPlusIconVisible?: boolean;
   title?: React.ReactNode;
-  path?: string;
 };
 
 const Header = (props: HeaderProps) => {
@@ -18,18 +18,16 @@ const Header = (props: HeaderProps) => {
   const onBack = () => router.history.back();
 
   return (
-    <div {...stylex.props(styles.box)}>
-      <div {...stylex.props(styles.icons)}>
-        <div>
-          {isBackIconVisible && (
-            <ChevronLeftIcon
-              width={30}
-              height={30}
-              cursor={'pointer'}
-              onClick={onBack}
-            />
-          )}
-        </div>
+    <div {...stylex.props(flexStyles.column, styles.box)}>
+      <div {...stylex.props(flexStyles.spaceBetween)}>
+        {isBackIconVisible && (
+          <ChevronLeftIcon
+            width={30}
+            height={30}
+            cursor={'pointer'}
+            onClick={onBack}
+          />
+        )}
 
         {isPlusIconVisible && <AddFriendIconButton />}
       </div>
@@ -43,8 +41,6 @@ export default memo(Header);
 
 const styles = stylex.create({
   box: {
-    display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     gap: '20px',
     minHeight: '170px',
@@ -54,10 +50,5 @@ const styles = stylex.create({
     fontSize: '20px',
     fontWeight: 600,
     whiteSpace: 'pre',
-  },
-
-  icons: {
-    display: 'flex',
-    justifyContent: 'space-between',
   },
 });

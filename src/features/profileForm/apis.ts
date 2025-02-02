@@ -1,11 +1,11 @@
-import { handleError, supabase } from '@/shared';
+import { handleError, NonNullable, supabase } from '@/shared';
 
 export const updateUserName = async ({
   userName,
   userId,
 }: {
   userName: string;
-  userId: string | undefined;
+  userId: NonNullable<string>;
 }) => {
   return await supabase
     .from('users')
