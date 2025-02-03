@@ -2,13 +2,18 @@ import { flexStyles } from '@/shared';
 import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 
+type NativeButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
 type ButtonProps = {
   command: string;
-  onClick?: React.MouseEventHandler<HTMLElement>;
-  type?: 'submit' | 'button' | 'reset';
+  onClick?: NativeButtonProps['onClick'];
+  type?: NativeButtonProps['type'];
+  disabled?: NativeButtonProps['disabled'];
   variant?: 'primary' | 'kakao' | 'cancel' | 'close';
-  disabled?: boolean;
-  icon?: React.ReactNode;
+  icon?: JSX.Element;
 };
 
 const DefaultButton = ({
