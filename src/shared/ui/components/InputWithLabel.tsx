@@ -3,11 +3,16 @@ import * as stylex from '@stylexjs/stylex';
 import { memo } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 
+type NativeInputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+
 type InputWithLabelProps = {
   label: string;
   register: UseFormRegisterReturn;
-  placeholder?: string;
-  type: string;
+  placeholder?: NativeInputProps['placeholder'];
+  type: NativeInputProps['type'];
 };
 
 const InputWithLabel = ({ label, register, ...props }: InputWithLabelProps) => {
