@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import { DefaultButton } from '@/shared';
+import { DefaultButton, KakaoIcon } from '@/shared';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
-const meta: Meta = {
+const meta = {
   title: 'Components/Button',
   component: DefaultButton,
   parameters: {},
   tags: ['autodocs'],
-  args: { onClick: fn() },
-} satisfies Meta;
+  args: { onClick: () => alert('Button clicked') },
+} satisfies Meta<typeof DefaultButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -31,6 +30,7 @@ export const Kakao: Story = {
     variant: 'kakao',
     disabled: false,
     type: 'button',
+    icon: <KakaoIcon />,
   },
 };
 
