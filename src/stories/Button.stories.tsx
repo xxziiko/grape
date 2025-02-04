@@ -3,9 +3,8 @@ import { DefaultButton, KakaoIcon } from '@/shared';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Buttons',
   component: DefaultButton,
-  parameters: {},
   tags: ['autodocs'],
   args: { onClick: () => alert('Button clicked') },
 } satisfies Meta<typeof DefaultButton>;
