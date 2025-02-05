@@ -1,7 +1,7 @@
 # 간편 채팅 서비스, grape
 
 ## 🔗 [grape](https://grape-chat.vercel.app/)
-👉 [🔗 Storybook](https://679f72f8682d5b75f90b5001-ohylerqvtj.chromatic.com/?path=/docs/components-button--docs)
+👉 [🔗 Storybook](https://679f72f8682d5b75f90b5001-npdzicziol.chromatic.com/)
 
 <br />
 
