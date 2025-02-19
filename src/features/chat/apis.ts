@@ -1,5 +1,5 @@
 import { handleError, NonNullable, supabase } from '@/shared';
-import type { Messages, RawChat, RawFriend } from './types';
+import type { RawChat, RawFriend, Message } from './types';
 
 export const fetchUserChats = async (userId: NonNullable<string>) =>
   (await supabase
@@ -15,7 +15,7 @@ export const fetchUserFriends = async (userId: NonNullable<string>) =>
     .eq('user_id', userId)
     .then(handleError)) as RawFriend[];
 
-export const sendChatMessage = async ({ chat_id, user_id, body }: Messages) =>
+export const sendChatMessage = async ({ chat_id, user_id, body }: Message) =>
   await supabase
     .from('messages')
     .insert([{ chat_id, user_id, body }])

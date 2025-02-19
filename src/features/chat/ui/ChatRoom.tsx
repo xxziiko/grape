@@ -2,7 +2,6 @@ import { userIdAtom } from '@/entities/auth';
 import {
   useChatInfoMutation,
   useIntersectionObserver,
-  useMessageMutation,
   useMessages,
 } from '@/features/chat';
 import { flexStyles } from '@/shared';
@@ -36,9 +35,13 @@ const ChatRoom = () => {
   const [autoScroll, setAutoScroll] = useState(true);
   const [scrollPosition, setScrollPosition] = useState<number | null>(null);
 
-  const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useMessages(chatId);
-  const { mutate: mutateMessage } = useMessageMutation(chatId);
+  const {
+    messages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    handleSendMessage,
+  } = useMessages(chatId);
   const { mutate: mutateIsNew } = useChatInfoMutation();
 
   const observe = useIntersectionObserver(
@@ -80,14 +83,14 @@ const ChatRoom = () => {
     async (data: SendMessage) => {
       if (!userId || !data.newMessage.trim()) return;
 
-      mutateMessage({
+      await handleSendMessage({
         chat_id: chatId!,
         user_id: userId,
         body: data.newMessage,
       });
       reset();
     },
-    [chatId, userId, mutateMessage, reset],
+    [chatId, userId, reset],
   );
 
   useEffect(() => {

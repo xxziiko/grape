@@ -22,11 +22,11 @@ type MapRawChatToChatItem<T extends RawChat> = {
 
 export type ChatItem = MapRawChatToChatItem<RawChat>;
 
-export type Messages = {
+export type Message = {
   chat_id: string;
   user_id: string;
-  id?: number;
   body: string;
+  id?: number | string;
   created_at?: string;
 };
 
