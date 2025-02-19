@@ -1,6 +1,6 @@
 import { handleError, supabase } from '@/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Messages } from '../types';
+import { Message } from '../types';
 
 const PAGE_SIZE = 20;
 
@@ -20,7 +20,7 @@ const useMessagesQuery = (chatId: string | undefined) => {
     },
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === PAGE_SIZE ? allPages.length : undefined,
-    select: (data) => data.pages.flat().reverse() as Messages[],
+    select: (data) => data.pages.flat().reverse() as Message[],
     enabled: !!chatId,
     initialPageParam: 0,
     staleTime: 1000 * 60,

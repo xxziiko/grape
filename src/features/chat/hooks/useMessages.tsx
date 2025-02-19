@@ -1,12 +1,17 @@
-import { type Messages, useMessagesQuery } from '@/features/chat';
+import {
+  type Message,
+  useMessagesQuery,
+  useMessageMutation,
+} from '@/features/chat';
 import useRealTimeMessages from '@/features/chat/hooks/useRealTimeMessages';
 import { useEffect, useState } from 'react';
-import { NonNullable } from '@/shared';
+import { handleError, NonNullable } from '@/shared';
+import { uniqueId } from 'es-toolkit/compat';
 
 const useMessages = (chatId: NonNullable<string>) => {
-  const [messages, setMessages] = useState<Messages[]>([]);
-  const [realtimeMessages, setRealtimeMessages] = useState<Messages[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
+  const { mutate: mutateMessage } = useMessageMutation(chatId);
   const {
     data,
     isLoading,
@@ -16,29 +21,34 @@ const useMessages = (chatId: NonNullable<string>) => {
     refetch,
   } = useMessagesQuery(chatId);
 
-  const updateMessages = (newMessages: Messages[]) => {
-    setRealtimeMessages((prev) => [...prev, ...newMessages]);
-  };
-
   useRealTimeMessages(chatId, (newMessage) => {
-    updateMessages([newMessage]);
+    setMessages((prev) => {
+      const updatedMessages = [...prev, newMessage];
+      return Array.from(
+        new Map(updatedMessages.map((msg) => [msg.id, msg])).values(),
+      );
+    });
   });
+
+  const handleSendMessage = async (newMessage: Message) => {
+    const clientMessage = { ...newMessage, id: uniqueId('userId_') };
+    setMessages((prev) => [...prev, clientMessage]);
+
+    try {
+      await mutateMessage(newMessage);
+    } catch (error) {
+      setMessages((prev) => prev.filter((msg) => msg.id !== newMessage.id));
+      handleError({ data: null, error });
+    }
+  };
 
   useEffect(() => {
     if (!data) return;
-
-    const allMessages = [...data, ...realtimeMessages].sort(
-      (a, b) =>
-        new Date(a.created_at ?? '0').getTime() -
-        new Date(b.created_at ?? '0').getTime(),
-    );
-
     const uniqueMessages = Array.from(
-      new Map(allMessages.map((msg) => [msg.id, msg])).values(),
+      new Map([...data, ...messages].map((msg) => [msg.id, msg])).values(),
     );
-
     setMessages(uniqueMessages);
-  }, [data, realtimeMessages]);
+  }, [data]);
 
   return {
     messages,
@@ -47,6 +57,7 @@ const useMessages = (chatId: NonNullable<string>) => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
+    handleSendMessage,
   };
 };
 
